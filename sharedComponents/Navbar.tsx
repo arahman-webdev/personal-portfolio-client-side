@@ -12,13 +12,13 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className=" py-5 px-3 sticky top-0 z-50">
+    <div className="absolute top-0 left-0 w-full z-50 py-5 px-3">
       <div className="flex justify-between items-center container mx-auto">
         {/* Logo + Links */}
         <div className="flex items-center gap-10">
           <Image src={logo} alt="logo" width={120} height={120} />
           {/* Desktop Menu */}
-          <ul className="hidden md:flex gap-6 text-white font-medium uppercase tracking-wide">
+          <ul className="hidden lg:flex gap-6 text-white font-medium uppercase tracking-wide">
             <Link href={"/"}>Home</Link>
             <Link href={"/about"}>About</Link>
             <Link href={"/service"}>Service</Link>
@@ -28,11 +28,11 @@ export default function Navbar() {
         </div>
 
         {/* Right Section */}
-        <div className="hidden md:flex gap-10 items-center">
+        <div className="hidden lg:flex gap-10 items-center">
           <div className="flex items-center gap-4 text-white">
             <PhoneCall className="text-indigo-400" />
             <div className="flex flex-col leading-tight">
-              <span className="text-gray-400 text-sm">Have any question?</span>
+              <span className="text-gray-300 text-sm">Have any question?</span>
               <span className="font-bold text-white">+880 1719617907</span>
             </div>
           </div>
@@ -42,7 +42,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center">
+        <div className="lg:hidden flex items-center">
           <button onClick={() => setIsOpen(!isOpen)} className="text-white">
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
@@ -57,7 +57,7 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-gradient-to-b from-[#1C154A] via-[#2A1F5E] to-[#140F37] text-white px-6 py-4 space-y-4 flex flex-col rounded-b-lg"
+            className="lg:hidden bg-gradient-to-b from-[#1C154A]/95 via-[#2A1F5E]/95 to-[#140F37]/95 text-white px-6 py-4 space-y-4 flex flex-col rounded-b-lg mt-2"
           >
             <Link href={"/"} onClick={() => setIsOpen(false)}>Home</Link>
             <Link href={"/about"} onClick={() => setIsOpen(false)}>About</Link>

@@ -4,9 +4,9 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import Autoplay from "embla-carousel-autoplay"
 import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
+  Carousel,
+  CarouselContent,
+  CarouselItem,
 } from "@/components/ui/carousel"
 
 // Images
@@ -16,6 +16,7 @@ import bgImg2 from "../../images/bg-slider-1.jpg"
 import fgImg2 from "../../images/front-slider-2.png"
 import bgImg3 from "../../images/bg-slider-2.jpg"
 import fgImg3 from "../../images/front-slider-3.png"
+import { Button } from "../ui/button"
 
 const slides = [
   {
@@ -51,76 +52,82 @@ const slides = [
 ]
 
 export default function Hero() {
-    return (
-        <div className="absolute w-full top-0 overflow-hidden">
-            <Carousel
-                opts={{ loop: true }}
-                plugins={[
-                    Autoplay({
-                        delay: 4000, // change slide every 4s
-                        stopOnInteraction: false, // keep autoplay even if user interacts
-                    }),
-                ]}
-                className="w-full h-screen"
-            >
-                <CarouselContent className="h-full">
-                    {slides.map((slide) => (
-                        <CarouselItem key={slide.id} className="h-full">
-                            <div className="relative w-full h-full flex items-center justify-center">
-                                {/* Background with animation */}
-                                <motion.div
-                                    key={slide.id + "-bg"}
-                                    initial={{ opacity: 0, x: -150 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: -150 }}
-                                    transition={{ duration: 1, ease: "easeOut" }}
-                                    className="absolute inset-0 bg-cover bg-center"
-                                    style={{
-                                        backgroundImage: `url(${typeof slide.bgSrc === "string"
-                                            ? slide.bgSrc
-                                            : slide.bgSrc.src
-                                            })`,
-                                    }}
-                                ></motion.div>
+  return (
+    <section className="relative w-full h-screen overflow-hidden top-0">
+      <Carousel
+        opts={{ loop: true }}
+        plugins={[
+          Autoplay({
+            delay: 4000,
+            stopOnInteraction: false,
+          }),
+        ]}
+        className="w-full h-full"
+      >
+        <CarouselContent className="h-full">
+          {slides.map((slide) => (
+            <CarouselItem key={slide.id} className="h-full">
+              <div className="relative w-full h-full flex items-center justify-center">
+                {/* Background with animation */}
+                <motion.div
+                  key={slide.id + "-bg"}
+                  initial={{ opacity: 0, x: -150 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -150 }}
+                  transition={{ duration: 1, ease: "easeOut" }}
+                  className="absolute inset-0 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url(${
+                      typeof slide.bgSrc === "string"
+                        ? slide.bgSrc
+                        : slide.bgSrc.src
+                    })`,
+                  }}
+                ></motion.div>
 
-                                {/* Foreground content */}
+                {/* Foreground content */}
+                <div className="relative w-full">
+                  <motion.div
+                    key={slide.id + "-fg"}
+                    initial={{ opacity: 0, x: 150 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 150 }}
+                    transition={{ duration: 1, ease: "easeOut" }}
+                    className="w-full relative"
+                  >
+                    <Image
+                      src={slide.fgSrc}
+                      alt={slide.alt}
+                      width={1200}
+                      height={700}
+                      className="object-cover w-full rounded-md"
+                    />
 
-                                <div className="relative w-full">
-                                    {/* Foreground Image */}
-                                    <motion.div
-                                        key={slide.id + "-fg"}
-                                        initial={{ opacity: 0, x: 150 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: 150 }}
-                                        transition={{ duration: 1, ease: "easeOut" }}
-                                        className="w-full relative"
-                                    >
-                                        <Image
-                                            src={slide.fgSrc}
-                                            alt={slide.alt}
-                                            width={1400}
-                                            height={700}
-                                            className="object-cover w-full  rounded-md"
-                                        />
-
-                                        {/* Text overlay */}
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 50 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ duration: 1, ease: "easeOut" }}
-                                            className="absolute top-1/2 left-10 md:left-60 transform -translate-y-1/2 text-white max-w-2xl space-y-6"
-                                        >
-                                            <p>{slide.subTitle}</p>
-                                            <h1 className="text-3xl md:text-6xl font-bold">{slide.title}</h1>
-                                            <p className="text-lg md:text-xl opacity-80">{slide.description}</p>
-                                        </motion.div>
-                                    </motion.div>
-                                </div>
-                            </div>
-                        </CarouselItem>
-                    ))}
-                </CarouselContent>
-            </Carousel>
-        </div>
-    )
+                    {/* Text overlay */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 50 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 1, ease: "easeOut" }}
+                      className="absolute top-1/2 left-10 md:left-60 transform -translate-y-1/2 text-white max-w-2xl space-y-6"
+                    >
+                      <p className="text-lg font-medium">{slide.subTitle}</p>
+                      <h1 className="text-3xl md:text-6xl font-bold">
+                        {slide.title}
+                      </h1>
+                      <p className="text-lg md:text-xl opacity-80">
+                        {slide.description}
+                      </p>
+                      <Button className="bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-600 uppercase text-white font-semibold px-7 py-6 rounded-md shadow-lg hover:scale-105 transition-transform duration-300">
+                        Read More
+                      </Button>
+                    </motion.div>
+                  </motion.div>
+                </div>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+    </section>
+  )
 }
