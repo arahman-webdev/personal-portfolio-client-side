@@ -72,7 +72,7 @@ const Footer = () => {
                 <div className="absolute inset-0 bg-[#28216e]/65 z-0"></div>
                 <div className="relative z-10 container mx-auto">
                     <div className="py-20 text-center space-y-5 text-white">
-                        <h3 className="text-4xl font-bold">Ready to gain competitive advantage by harnessing data and modernising your technology?</h3>
+                        <h3 className="text-4xl font-bold">Ready to gain competitive advantage by harnessing <br /> data and modernising your technology?</h3>
                         <Button>Get Started</Button>
                     </div>
                     <div>
@@ -113,9 +113,9 @@ const Footer = () => {
                                                         <li key={title} className="group transition">
                                                             <Link
                                                                 href={'/'}
-                                                                className="text-white hover:text-foreground flex items-center gap-2 group-hover:translate-x-2 duration-300 ease-in-out"
+                                                                className="text-white flex items-center gap-2 group-hover:translate-x-2 duration-300 ease-in-out"
                                                             >
-                                                                <ArrowRight size={14} className="group-hover:text-primary" />
+                                                                <ArrowRight size={14} className="group-hover:text-white group-hover:bg-gradient-to-r from-[#ff00bf] via-[#f035c1] " />
                                                                 {title}
                                                             </Link>
                                                         </li>
