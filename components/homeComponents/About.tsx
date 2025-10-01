@@ -50,7 +50,7 @@ const About = () => {
             </h3>
 
             <p className="text-lg text-gray-600 leading-relaxed">
-              Hello! I'm a passionate and results-driven software developer with expertise in modern web technologies.
+              Hello! I&apos;m a passionate and results-driven software developer with expertise in modern web technologies.
               My focus is on creating
               <strong className="font-semibold text-gray-800"> clean, efficient, and user-friendly applications</strong>
               that solve real-world problems.

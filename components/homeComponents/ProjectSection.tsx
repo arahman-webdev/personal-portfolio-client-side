@@ -1,6 +1,5 @@
-import ProjectCard from "@/components/homeComponents/ProjectCard";
-import React from "react";
-
+import SectionHeading from "@/sharedComponents/SectionHeading";
+import ProjectCard from "./ProjectCard";
 
 const projects = [
   {
@@ -29,29 +28,23 @@ const projects = [
   },
 ];
 
-const Projects = () => {
-  return (
-    <section id="projects" className="py-20 sm:py-28 bg-gradient-to-b from-gray-50 to-white">
-      <div className="container mx-auto px-6 lg:px-12">
-        {/* Section Title */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-[#8236fb] to-[#076ef4] bg-clip-text text-transparent">
-            Projects
-          </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-            A selection of projects that highlight my skills in building modern, scalable, and user-friendly web applications.
-          </p>
+const ProjectSection = () => {
+    return (
+        <div>
+                  <section className="py-20 sm:py-28 bg-gradient-to-b from-gray-50 to-white relative">
+        <div className="container mx-auto px-6 lg:px-12">
+          {/* Section Title */}
+          <SectionHeading title={'Projects'} subTitle="A selection of projects that highlight my skills in building modern, scalable, and user-friendly web applications." />
+          {/* Project Grid */}
+          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+            {projects.map((p, i) => (
+              <ProjectCard key={i} project={p} />
+            ))}
+          </div>
         </div>
-
-        {/* Project Grid */}
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p, i) => (
-            <ProjectCard key={i} project={p} />
-          ))}
+      </section>
         </div>
-      </div>
-    </section>
-  );
+    );
 };
 
-export default Projects;
+export default ProjectSection;

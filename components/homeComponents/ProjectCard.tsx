@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
+import Link from "next/link";
 
 interface Project {
   title: string;
@@ -53,7 +54,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
 
         {/* Buttons */}
         <div className="flex items-center gap-4 pt-4">
-          <a
+          <Link
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
@@ -61,7 +62,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
           >
             <ExternalLink className="w-4 h-4" />
             Live Demo
-          </a>
+          </Link>
           <a
             href={project.githubUrl}
             target="_blank"

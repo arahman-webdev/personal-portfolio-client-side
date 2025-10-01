@@ -1,9 +1,11 @@
-import { Button } from "@/components/ui/button";
+
 import Image from "next/image";
 import logo from "../images/logo.png"
 import footerBgImg from '../images/bgImg.jpg'
 import { ArrowRight, DribbbleIcon, Facebook, GithubIcon, LinkedinIcon, TwitchIcon, Twitter, TwitterIcon, Youtube } from "lucide-react";
 import Link from "next/link";
+import Button from "./Button";
+
 const Footer = () => {
 
     const footerSections = [
@@ -73,7 +75,8 @@ const Footer = () => {
                 <div className="relative z-10 container mx-auto">
                     <div className="py-20 text-center space-y-5 text-white">
                         <h3 className="text-4xl font-bold">Ready to gain competitive advantage by harnessing <br /> data and modernising your technology?</h3>
-                        <Button>Get Started</Button>
+                       
+                     <Button />
                     </div>
                     <div>
                         <div className="flex flex-col">

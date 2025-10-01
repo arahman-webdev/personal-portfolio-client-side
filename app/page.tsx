@@ -1,8 +1,11 @@
 import About from "@/components/homeComponents/About";
 import Feature from "@/components/homeComponents/Feature";
 import Hero from "@/components/homeComponents/Hero";
-import Projects from "./projects/page";
+
 import BlogPost from "@/components/homeComponents/BlogPost";
+import ServiceSection from "@/components/homeComponents/ServiceSection";
+import ProjectSection from "@/components/homeComponents/ProjectSection";
+
 
 
 export default function Home() {
@@ -11,8 +14,9 @@ export default function Home() {
       <Hero />
       <Feature />
       <About />
-      <Projects />
+      <ServiceSection />
       <BlogPost />
+      <ProjectSection />
     </div>
   );
 }

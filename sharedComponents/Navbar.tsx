@@ -62,7 +62,7 @@ export default function Navbar() {
             <Link href={"/"} onClick={() => setIsOpen(false)}>Home</Link>
             <Link href={"/about"} onClick={() => setIsOpen(false)}>About</Link>
             <Link href={"/service"} onClick={() => setIsOpen(false)}>Service</Link>
-            <Link href={"/project"} onClick={() => setIsOpen(false)}>Project</Link>
+            <Link href={"/projects"} onClick={() => setIsOpen(false)}>Project</Link>
             <Link href={"/contact"} onClick={() => setIsOpen(false)}>Contact</Link>
 
             <div className="flex flex-col gap-4 mt-6">
