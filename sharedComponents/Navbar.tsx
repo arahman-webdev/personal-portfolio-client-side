@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import { Button } from "../components/ui/button"
 import Image from "next/image"
-import logo from "../images/logo.png"
+import logo from "../images/arlogo.png"
 import Link from "next/link"
 import { PhoneCall, Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -16,7 +16,7 @@ export default function Navbar() {
       <div className="flex justify-between items-center container mx-auto">
         {/* Logo + Links */}
         <div className="flex items-center gap-10">
-          <Image src={logo} alt="logo" width={120} height={120} />
+          <Image src={logo} alt="logo" width={150} height={150} />
           {/* Desktop Menu */}
           <ul className="hidden lg:flex gap-6 text-white font-medium uppercase tracking-wide">
             <Link href={"/"}>Home</Link>

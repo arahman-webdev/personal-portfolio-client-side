@@ -7,31 +7,28 @@ import { Code2, Database, Layout, Lock } from "lucide-react";
 const services = [
   {
     id: 1,
-    icon: 
-  <Code2 className="w-8 h-8 text-white" />
-
-,
+    icon: <Code2 className="w-8 h-8" />,
     title: "Frontend Development",
     description:
       "Building responsive, interactive, and visually appealing web applications using Next.js, React, and Tailwind CSS.",
   },
   {
     id: 2,
-    icon: <Database className="w-8 h-8 text-white" />,
+    icon: <Database className="w-8 h-8" />,
     title: "Backend Development",
     description:
       "Creating scalable and secure backend systems with Node.js, Express, and databases like PostgreSQL or MongoDB.",
   },
   {
     id: 3,
-    icon: <Layout className="w-8 h-8 text-white" />,
+    icon: <Layout className="w-8 h-8" />,
     title: "Full-Stack Solutions",
     description:
       "Delivering complete web solutions from design to deployment, ensuring seamless user experiences and performance.",
   },
   {
     id: 4,
-    icon: <Lock className="w-8 h-8 text-white" />,
+    icon: <Lock className="w-8 h-8" />,
     title: "Authentication & Security",
     description:
       "Implementing secure authentication, authorization, and data protection with JWT, bcrypt, and role-based access control.",
@@ -40,7 +37,10 @@ const services = [
 
 const ServiceSection = () => {
   return (
-    <section id="services" className="py-20 bg-gradient-to-b from-[#F4F7FB] to-gray-50">
+    <section
+      id="services"
+      className="py-20 bg-gradient-to-b from-[#F4F7FB] to-gray-50"
+    >
       <div className="container mx-auto px-6 lg:px-12 text-center">
         {/* Title */}
         <motion.h2
@@ -48,10 +48,9 @@ const ServiceSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className=" mb-12"
+          className="mb-12"
         >
-         
-          <SectionHeading title="My Services" subTitle="subtied" />
+          <SectionHeading title="My Services" subTitle="What I can do for you" />
         </motion.h2>
 
         {/* Services Grid */}
@@ -63,15 +62,21 @@ const ServiceSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="group bg-white rounded-2xl shadow-md p-8 hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
+              whileHover={{ scale: 1.05, rotate: 0.5 }}
+              className="relative group rounded-2xl p-[1px] bg-gradient-to-r from-[#8236fb] to-[#076ef4be] hover:shadow-2xl transition-all duration-300"
             >
-              <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#8236fb] to-[#076ef4be] rounded-full mx-auto mb-6 group-hover:scale-110 transition">
-                {service.icon}
+              {/* Inner Card */}
+              <div className="bg-white rounded-2xl h-full p-8 flex flex-col items-center text-center space-y-4">
+                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#8236fb] to-[#076ef4be] rounded-full text-white group-hover:scale-110 transition duration-300">
+                  {service.icon}
+                </div>
+                <h3 className="text-xl font-bold bg-gradient-to-r from-[#8236fb] to-[#076ef4be] text-transparent bg-clip-text">
+                  {service.title}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  {service.description}
+                </p>
               </div>
-              <h3 className="text-xl font-bold bg-gradient-to-r from-[#8236fb] to-[#076ef4be] text-transparent bg-clip-text mb-4">
-                {service.title}
-              </h3>
-              <p className="text-gray-600 text-sm">{service.description}</p>
             </motion.div>
           ))}
         </div>
