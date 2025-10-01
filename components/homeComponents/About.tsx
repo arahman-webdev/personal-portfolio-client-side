@@ -120,9 +120,9 @@ const About = () => {
             viewport={{ once: true }}
             className="relative flex justify-center lg:justify-end"
           >
-            <div className="w-full max-w-md lg:max-w-lg relative">
+            <div className="w-full max-w-md lg:max-w-2xl relative">
               <Image
-                className="w-full h-auto object-cover rounded-2xl shadow-xl transform hover:scale-105 transition duration-500 ease-in-out"
+                className="w-full h-auto object-cover  "
                 width={700}
                 height={500}
                 src={aboutImg}
