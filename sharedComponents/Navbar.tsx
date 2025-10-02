@@ -7,9 +7,12 @@ import logo from "../images/arlogo.png"
 import Link from "next/link"
 import { PhoneCall, Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import { usePathname } from "next/navigation"
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+
+  const pathName = usePathname()
 
   return (
     <div className="absolute top-0 left-0 w-full z-50 py-5 px-3">
@@ -18,12 +21,16 @@ export default function Navbar() {
         <div className="flex items-center gap-10">
           <Image src={logo} alt="logo" width={150} height={150} />
           {/* Desktop Menu */}
-          <ul className="hidden lg:flex gap-6 text-white font-medium uppercase tracking-wide">
-            <Link href={"/"}>Home</Link>
-            <Link href={"/about"}>About</Link>
-            <Link href={"/service"}>Service</Link>
-            <Link href={"/project"}>Project</Link>
-            <Link href={"/contact"}>Contact</Link>
+          <ul className="hidden lg:flex gap-6 bg-gradient-to-r from-[#8236fb] to-[#076ef4] text-transparent bg-clip-text font-medium uppercase tracking-wide">
+            <Link 
+            className={`${pathName === '/' ? "text-indigo-400 underline":"text-white"}`}
+            href={"/"}>Home</Link>
+            <Link 
+            className={`${pathName === '/about' ? "text-blue-400 underline":"text-white"}`}
+            href={"/about"}>About</Link>
+            <Link className={`${pathName === '/service' ? "text-blue-400 underline":"text-white"}`} href={"/service"}>Service</Link>
+            <Link className={`${pathName === '/project' ? "text-blue-400 underline":"text-white"}`} href={"/project"}>Project</Link>
+            <Link className={`${pathName === '/contact' ? "text-blue-400 underline":"text-white"}`} href={"/contact"}>Contact</Link>
           </ul>
         </div>
 
