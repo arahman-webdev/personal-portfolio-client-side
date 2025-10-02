@@ -25,11 +25,7 @@ import {
 import { toast } from "sonner";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
-
-// import { role } from "@/constant/constant";
-// import { setCredentials } from "@/redux/features/authSlice";
-// import { useDispatch } from "react-redux";
-// import { useRouter } from "next/navigation";
+import Password from "./PasswordInput";
 
 type LoginRequest = {
     email: string;
@@ -40,11 +36,7 @@ export function LoginForm({
     className,
     ...props
 }: React.ComponentProps<"div">) {
-    const form = useForm()
-
-    // const router = useRouter()
-    // const dispatch = useDispatch();
- 
+    const form = useForm<LoginRequest>()
 
     const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
         try {
@@ -116,12 +108,12 @@ export function LoginForm({
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Password:</FormLabel>
-                                        {/* <FormControl>
+                                        <FormControl>
                                             <Password
                                                 {...field}
                                                 value={field.value || ""}
                                             />
-                                        </FormControl> */}
+                                        </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
