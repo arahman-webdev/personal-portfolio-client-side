@@ -43,9 +43,9 @@ export default function Navbar() {
               <span className="font-bold text-white">+880 1719617907</span>
             </div>
           </div>
-          <Button className="bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-600 text-white text-sm rounded-md py-2 px-6 font-semibold uppercase shadow-lg hover:scale-105 transition-transform duration-300">
+          <Link href={'/login'} className="bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-600 text-white text-sm rounded-md py-2 px-6 font-semibold uppercase shadow-lg hover:scale-105 transition-transform duration-300">
             Login
-          </Button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
