@@ -1,4 +1,4 @@
-import { div } from "framer-motion/client";
+
 import BlogCard from "./BlogCard";
 import SectionHeading from "@/sharedComponents/SectionHeading";
 

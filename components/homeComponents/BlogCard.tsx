@@ -2,7 +2,6 @@ import Image from "next/image";
 import postImg1 from '../../images/post-1.webp'
 import { Calendar, User } from "lucide-react";
 import Link from "next/link";
-import Button from "@/sharedComponents/Button";
 
 const BlogCard = () => {
   return (

@@ -1,8 +1,6 @@
 
-import Image from "next/image";
-import logo from "../images/logo.png"
-import footerBgImg from '../images/bgImg.jpg'
-import { ArrowRight, DribbbleIcon, Facebook, GithubIcon, LinkedinIcon, TwitchIcon, Twitter, TwitterIcon, Youtube } from "lucide-react";
+
+import { ArrowRight, Facebook, LinkedinIcon, Twitter, Youtube } from "lucide-react";
 import Link from "next/link";
 import Button from "./Button";
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import React from "react";
 import { cn } from "@/lib/utils";
@@ -23,7 +24,6 @@ import {
 
 
 import { toast } from "sonner";
-import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Password from "./PasswordInput";
 
@@ -147,15 +147,7 @@ const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
 
                     {/* Only Google login button */}
 
-                    <div className="text-center text-sm mt-2">
-                        New here?{" "}
-                        <Link
-                            href="/register"
-                            className="text-[#373DD2] font-semibold hover:underline"
-                        >
-                            Sign Up
-                        </Link>
-                    </div>
+
                 </CardContent>
             </Card>
         </div>
