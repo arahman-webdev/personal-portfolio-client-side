@@ -34,7 +34,7 @@ export default function CreateBlogForm() {
 }
 
     try {
-      const res = await fetch("http://localhost:5000/api/v1/post", { method: "POST", body: formData});
+      const res = await fetch("https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/post", { method: "POST", body: formData});
       const data = await res.json();
       console.log(data);
       // Optionally reset form here

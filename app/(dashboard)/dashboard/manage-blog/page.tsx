@@ -17,7 +17,7 @@ export default function ManageBlog() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
 
   const fetchBlogs = async () => {
-    const res = await fetch(`http://localhost:5000/api/v1/post`);
+    const res = await fetch(`https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/post`);
     const data = await res.json();
     setBlogs(data.data);
     console.log(data)
@@ -29,7 +29,7 @@ export default function ManageBlog() {
   }, []);
 
   const handleDelete = async (id: number) => {
-    await fetch(`http://localhost:5000/api/v1/post/${id}`, { method: "DELETE", next:{revalidate:3600} });
+    await fetch(`https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/post/${id}`, { method: "DELETE", next:{revalidate:3600} });
     setBlogs((prev) => prev.filter((b) => b.id !== id));
   };
 

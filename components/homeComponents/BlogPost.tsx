@@ -6,7 +6,7 @@ import SectionHeading from "@/sharedComponents/SectionHeading";
 
 const BlogPost = async() => {
 
-    const data = await fetch('http://localhost:5000/api/v1/post',{
+    const data = await fetch('https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/post',{
         next:{
             revalidate: 60
         }
