@@ -30,6 +30,8 @@ export default function Password({...field}) {
           aria-label={isVisible ? "Hide password" : "Show password"}
           aria-pressed={isVisible}
           aria-controls="password"
+          id="password"
+          
         >
           {isVisible ? (
             <EyeOffIcon size={16} aria-hidden="true" />

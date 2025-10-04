@@ -38,23 +38,32 @@ export function LoginForm({
 }: React.ComponentProps<"div">) {
     const form = useForm<LoginRequest>()
 
-    const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
-        try {
+const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data), // ✅ send { email, password }
+      credentials: "include"
+    });
 
 
-            console.log(data)
+    
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.message || "Login failed");
+    }
 
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
-            if ("data" in error && error.data) {
-                toast.error(error.data.message || "Something went wrong");
-            } else if ("message" in error) {
-                toast.error(error.message);
-            } else {
-                toast.error("Something went wrong");
-            }
-        }
-    };
+    const result = await res.json();
+    console.log("Login success:", result);
+    toast.success("Logged in successfully!");
+  } catch (error: any) {
+    toast.error(error.message || "Something went wrong");
+  }
+};
+
 
     // Blur background styles
     return (
@@ -87,12 +96,14 @@ export function LoginForm({
                                 name="email"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Email:</FormLabel>
+                                        <FormLabel htmlFor="email">Email:</FormLabel>
                                         <FormControl>
                                             <Input
                                                 className="rounded-none p-6"
                                                 placeholder="Email"
+                                                id="email"
                                                 type="email"
+                                                autoComplete="email"
                                                 required
                                                 {...field}
                                                 value={field.value || ""}
@@ -110,6 +121,7 @@ export function LoginForm({
                                         <FormLabel>Password:</FormLabel>
                                         <FormControl>
                                             <Password
+                                            
                                                 {...field}
                                                 value={field.value || ""}
                                             />
