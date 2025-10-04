@@ -31,13 +31,13 @@ export default function Sidebar() {
             <LayoutDashboard size={20} /> Dashboard
           </Link>
           <Link
-            href="/project/create"
+            href="/dashboard/create-blog"
             className="flex items-center gap-3 hover:text-gray-300 transition"
           >
             <Plus size={20} /> Create Blog
           </Link>
           <Link
-            href="/blog/manage"
+            href="/dashboard/manage-blog"
             className="flex items-center gap-3 hover:text-gray-300 transition"
           >
             <FileText size={20} /> Manage Blog

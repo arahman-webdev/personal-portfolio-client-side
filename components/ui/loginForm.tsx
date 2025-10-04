@@ -50,15 +50,10 @@ const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
     });
 
 
-    
-    if (!res.ok) {
-      const error = await res.json();
-      throw new Error(error.message || "Login failed");
-    }
+    console.log(res)
 
-    const result = await res.json();
-    console.log("Login success:", result);
-    toast.success("Logged in successfully!");
+
+    console.log(data)
   } catch (error: any) {
     console.log(error)
   }

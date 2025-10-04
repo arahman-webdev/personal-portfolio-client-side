@@ -6,6 +6,7 @@ import "../../globals.css";
 import { motion } from "framer-motion";
 import Sidebar from "./dashboardComponents/Sidebar";
 import Topbar from "./dashboardComponents/Topbar";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function DashboardLayout({
   children,
@@ -33,6 +34,7 @@ export default function DashboardLayout({
                 className="flex-1 overflow-y-auto p-6 md:p-10"
               >
                 {children}
+                <Toaster />
               </motion.main>
             </div>
           </div>
