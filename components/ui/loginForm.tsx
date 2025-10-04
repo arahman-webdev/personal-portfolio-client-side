@@ -40,7 +40,7 @@ export function LoginForm({
 
 const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/login`, {
+    const res = await fetch(`https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
