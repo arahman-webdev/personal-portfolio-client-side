@@ -60,7 +60,7 @@ const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
     console.log("Login success:", result);
     toast.success("Logged in successfully!");
   } catch (error: any) {
-    toast.error(error.message || "Something went wrong");
+    console.log(error)
   }
 };
 
