@@ -18,6 +18,7 @@ export default function DashboardLayout({
 
       <html lang="en">
         <body
+         cz-shortcut-listen="true"
           
         >
           <div className="flex h-screen bg-[#F5F7F9]">
