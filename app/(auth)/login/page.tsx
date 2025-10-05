@@ -1,5 +1,6 @@
 
 import LoginForm from "@/components/ui/loginForm";
+import { Suspense } from "react";
 
 
 
@@ -14,7 +15,9 @@ const LoginPage = () => {
 
             {/* Login box */}
             <div className="relative z-10 flex w-full max-w-lg flex-col gap-6 p-6 rounded-2xl  backdrop-blur-sm">
-                <LoginForm />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <LoginForm />
+                </Suspense>
             </div>
         </div>
     );

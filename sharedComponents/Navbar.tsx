@@ -8,7 +8,7 @@ import Link from "next/link";
 import { PhoneCall, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { ProfileOpen } from "@/components/layout/ProfileOpen";
+
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -80,7 +80,6 @@ export default function Navbar() {
             {[
               { name: "Home", href: "/" },
               { name: "About", href: "/about" },
-              { name: "Service", href: "/service" },
               { name: "Blog", href: "/blog" },
               { name: "Project", href: "/project" },
               { name: "Contact", href: "/contact" },
