@@ -113,12 +113,8 @@ export default function Navbar() {
           {!loading && (
             <>
               {user ? (
-                <ProfileOpen
-                  name={user.name}
-                  role={user.role}
-                  MyDashboard=''
-                  logout={handleLogout}
-                />
+                <button onClick={handleLogout}>Logout</button>
+                
               ) : (
                 <Link
                   href="/login"
