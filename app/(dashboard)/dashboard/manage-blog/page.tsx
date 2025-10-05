@@ -1,10 +1,26 @@
-
-
 "use client";
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface Blog {
   id: number;
@@ -15,25 +31,41 @@ interface Blog {
 
 export default function ManageBlog() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [selectedBlogId, setSelectedBlogId] = useState<number | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const fetchBlogs = async () => {
-    const res = await fetch(`https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/post`);
-    const data = await res.json();
-    setBlogs(data.data);
-    console.log(data)
+    try {
+      const res = await fetch(
+        `https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/post`
+      );
+      const data = await res.json();
+      setBlogs(data.data);
+    } catch (error) {
+      console.error("Failed to fetch blogs:", error);
+    }
   };
 
   useEffect(() => {
     fetchBlogs();
   }, []);
 
-  const handleDelete = async (id: number) => {
-    await fetch(`https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/post/${id}`, { method: "DELETE", next:{revalidate:3600} });
-    setBlogs((prev) => prev.filter((b) => b.id !== id));
+  const confirmDelete = async () => {
+    if (!selectedBlogId) return;
+    try {
+      await fetch(
+        `https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/post/${selectedBlogId}`,
+        { method: "DELETE", next: { revalidate: 3600 } }
+      );
+      setBlogs((prev) => prev.filter((b) => b.id !== selectedBlogId));
+      setSelectedBlogId(null);
+      setIsDialogOpen(false);
+    } catch (error) {
+      console.error("Failed to delete blog:", error);
+    }
   };
 
   const handleUpdate = (id: number) => {
-    // redirect to update page
     window.location.href = `/dashboard/update-blog/${id}`;
   };
 
@@ -56,8 +88,41 @@ export default function ManageBlog() {
               <TableCell>{blog.excerpt}</TableCell>
               <TableCell>{blog.published ? "Yes" : "No"}</TableCell>
               <TableCell className="flex gap-2">
-                <Button onClick={() => handleUpdate(blog.id)} size="sm">Update</Button>
-                <Button onClick={() => handleDelete(blog.id)} size="sm" variant="destructive">Delete</Button>
+                <Button onClick={() => handleUpdate(blog.id)} size="sm">
+                  Update
+                </Button>
+
+                {/* Delete button with AlertDialog */}
+                <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      onClick={() => {
+                        setSelectedBlogId(blog.id);
+                        setIsDialogOpen(true);
+                      }}
+                      size="sm"
+                      variant="destructive"
+                    >
+                      Delete
+                    </Button>
+                  </AlertDialogTrigger>
+
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Confirm Delete</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Are you sure you want to delete this blog? This action
+                        cannot be undone.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction onClick={confirmDelete}>
+                        Delete
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </TableCell>
             </TableRow>
           ))}
