@@ -8,11 +8,60 @@ import Link from "next/link"
 import { PhoneCall, Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { usePathname } from "next/navigation"
-
+import { useEffect } from "react";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   const pathName = usePathname()
+const [user, setUser] = useState<{ name: string } | null>(null);
+const [loading, setLoading] = useState(true);
+
+
+useEffect(() => {
+  const fetchUser = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/v1/user/me", {
+        method: "GET",
+        credentials: "include", // needed if using cookies for auth
+      });
+      const data = await res.json();
+
+      
+
+      if (data.success) {
+        setUser(data.data); // assuming your backend returns { success, data: user }
+      } else {
+        setUser(null);
+      }
+    } catch (error) {
+      console.error("Failed to fetch user:", error);
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchUser();
+}, []);
+
+
+const handleLogout = async () => {
+  try {
+    const res = await fetch("http://localhost:5000/api/v1/auth/logout", {
+      method: "POST",
+      credentials: "include", 
+    });
+
+    if (res.ok) {
+      setUser(null); // clear user state
+      console.log("Logged out successfully");
+    } else {
+      console.log("Logout failed");
+    }
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+};
 
   return (
     <div className="absolute top-0 left-0 w-full z-50 py-5 px-3">
@@ -43,8 +92,9 @@ export default function Navbar() {
               <span className="font-bold text-white">+880 1719617907</span>
             </div>
           </div>
+          <Button onClick={handleLogout}>Logout</Button>
           <Link href={'/login'} className="bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-600 text-white text-sm rounded-md py-2 px-6 font-semibold uppercase shadow-lg hover:scale-105 transition-transform duration-300">
-            Login
+            Login {user?.name}
           </Link>
         </div>
 
