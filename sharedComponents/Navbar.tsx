@@ -116,7 +116,7 @@ export default function Navbar() {
                 <ProfileOpen
                   name={user.name}
                   role={user.role}
-                  MyDashboard='/dashboard'
+                  MyDashboard=''
                   logout={handleLogout}
                 />
               ) : (
