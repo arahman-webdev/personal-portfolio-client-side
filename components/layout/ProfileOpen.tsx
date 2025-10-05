@@ -18,7 +18,6 @@ interface ProfileOpenProps {
 export function ProfileOpen({
   name,
   role,
-  MyDashboard,
   logout,
 }: ProfileOpenProps) {
   return (
