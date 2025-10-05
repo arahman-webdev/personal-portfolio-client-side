@@ -1,36 +1,37 @@
-"use client"
+"use client";
 
-import React, { useState } from "react"
-import { Button } from "../components/ui/button"
-import Image from "next/image"
-import logo from "../images/arlogo.png"
-import Link from "next/link"
-import { PhoneCall, Menu, X } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
-import { usePathname } from "next/navigation"
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Button } from "../components/ui/button";
+import Image from "next/image";
+import logo from "../images/arlogo.png";
+import Link from "next/link";
+import { PhoneCall, Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { usePathname } from "next/navigation";
+import { ProfileOpen } from "@/components/layout/ProfileOpen";
+
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const pathName = usePathname();
 
-  const pathName = usePathname()
-  const [user, setUser] = useState<{ name: string } | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [user, setUser] = useState<{ name: string; role?: string } | null>(null);
   const [loading, setLoading] = useState(true);
 
-
+  // ✅ Fetch logged-in user
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/user/me", {
-          method: "GET",
-          credentials: "include", // needed if using cookies for auth
-        });
+        const res = await fetch(
+          "https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/user/me",
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
         const data = await res.json();
 
-
-
         if (data.success) {
-          setUser(data.data); // assuming your backend returns { success, data: user }
+          setUser(data.data);
         } else {
           setUser(null);
         }
@@ -45,19 +46,22 @@ export default function Navbar() {
     fetchUser();
   }, []);
 
-
+  // ✅ Handle logout
   const handleLogout = async () => {
     try {
-      const res = await fetch("https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/auth/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+      const res = await fetch(
+        "https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/auth/logout",
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
 
       if (res.ok) {
-        setUser(null); // clear user state
-        console.log("Logged out successfully");
+        setUser(null);
+        console.log("✅ Logged out successfully");
       } else {
-        console.log("Logout failed");
+        console.error("Logout failed");
       }
     } catch (error) {
       console.error("Logout error:", error);
@@ -65,45 +69,69 @@ export default function Navbar() {
   };
 
   return (
-    <div className="absolute top-0 left-0 w-full z-50 py-5 px-3">
+    <nav className="absolute top-0 left-0 w-full z-50 py-5 px-3 bg-transparent">
       <div className="flex justify-between items-center container mx-auto">
         {/* Logo + Links */}
         <div className="flex items-center gap-10">
-          <Image src={logo} alt="logo" width={150} height={150} />
+          <Image src={logo} alt="logo" width={140} height={140} />
+
           {/* Desktop Menu */}
-          <ul className="hidden lg:flex gap-6 bg-gradient-to-r from-[#8236fb] to-[#076ef4] text-transparent bg-clip-text font-medium uppercase tracking-wide">
-            <Link
-              className={`${pathName === '/' ? "text-indigo-400 underline" : "text-white"}`}
-              href={"/"}>Home</Link>
-            <Link
-              className={`${pathName === '/about' ? "text-blue-400 underline" : "text-white"}`}
-              href={"/about"}>About</Link>
-            <Link className={`${pathName === '/service' ? "text-blue-400 underline" : "text-white"}`} href={"/service"}>Service</Link>
-            <Link className={`${pathName === '/blog' ? "text-blue-400 underline" : "text-white"}`} href={"/blog"}>Blog</Link>
-            <Link className={`${pathName === '/project' ? "text-blue-400 underline" : "text-white"}`} href={"/project"}>Project</Link>
-            <Link className={`${pathName === '/contact' ? "text-blue-400 underline" : "text-white"}`} href={"/contact"}>Contact</Link>
+          <ul className="hidden lg:flex gap-6 font-medium uppercase tracking-wide">
+            {[
+              { name: "Home", href: "/" },
+              { name: "About", href: "/about" },
+              { name: "Service", href: "/service" },
+              { name: "Blog", href: "/blog" },
+              { name: "Project", href: "/project" },
+              { name: "Contact", href: "/contact" },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`transition-colors ${
+                  pathName === item.href
+                    ? "text-blue-400 underline"
+                    : "text-white hover:text-indigo-400"
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
           </ul>
         </div>
 
         {/* Right Section */}
         <div className="hidden lg:flex gap-10 items-center">
-          <div className="flex items-center gap-4 text-white">
+          <div className="flex items-center gap-3 text-white">
             <PhoneCall className="text-indigo-400" />
-            <div className="flex flex-col leading-tight">
-              <span className="text-gray-300 text-sm">Have any question?</span>
-              <span className="font-bold text-white">+880 1719617907</span>
+            <div className="leading-tight">
+              <p className="text-gray-300 text-sm">Have any question?</p>
+              <p className="font-bold text-white">+880 1719617907</p>
             </div>
           </div>
-          {
-            user?.name ? (<Button className="bg-red-500 text-white" onClick={handleLogout}>Logout</Button>) : (<Link href={'/login'} className="bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-600 text-white text-sm rounded-md py-2 px-6 font-semibold uppercase shadow-lg hover:scale-105 transition-transform duration-300">
-              Login {user?.name}
-            </Link>)
-          }
 
-
+          {!loading && (
+            <>
+              {user ? (
+                <ProfileOpen
+                  name={user.name}
+                  role={user.role}
+                  MyDashboard='/dashboard'
+                  logout={handleLogout}
+                />
+              ) : (
+                <Link
+                  href="/login"
+                  className="bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-600 text-white text-sm rounded-md py-2 px-6 font-semibold uppercase shadow-lg hover:scale-105 transition-transform duration-300"
+                >
+                  Login
+                </Link>
+              )}
+            </>
+          )}
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Toggle */}
         <div className="lg:hidden flex items-center">
           <button onClick={() => setIsOpen(!isOpen)} className="text-white">
             {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -111,7 +139,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu with Framer Motion */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -121,24 +149,50 @@ export default function Navbar() {
             transition={{ duration: 0.3 }}
             className="lg:hidden bg-gradient-to-b from-[#1C154A]/95 via-[#2A1F5E]/95 to-[#140F37]/95 text-white px-6 py-4 space-y-4 flex flex-col rounded-b-lg mt-2"
           >
-            <Link href={"/"} onClick={() => setIsOpen(false)}>Home</Link>
-            <Link href={"/about"} onClick={() => setIsOpen(false)}>About</Link>
-            <Link href={"/service"} onClick={() => setIsOpen(false)}>Service</Link>
-            <Link href={"/projects"} onClick={() => setIsOpen(false)}>Project</Link>
-            <Link href={"/contact"} onClick={() => setIsOpen(false)}>Contact</Link>
+            {[
+              { name: "Home", href: "/" },
+              { name: "About", href: "/about" },
+              { name: "Service", href: "/service" },
+              { name: "Projects", href: "/project" },
+              { name: "Contact", href: "/contact" },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+              >
+                {item.name}
+              </Link>
+            ))}
 
             <div className="flex flex-col gap-4 mt-6">
               <div className="flex items-center gap-3">
                 <PhoneCall className="text-indigo-400" />
                 <span className="font-semibold">+880 1719617907</span>
               </div>
-              <Button className="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-600 uppercase text-white font-semibold py-2 rounded-md shadow-lg hover:scale-105 transition-transform duration-300">
-                Login
-              </Button>
+
+              {!user ? (
+                <Link
+                  href="/login"
+                  className="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-600 text-center text-white font-semibold py-2 rounded-md shadow-lg hover:scale-105 transition-transform duration-300"
+                >
+                  Login
+                </Link>
+              ) : (
+                <Button
+                  onClick={() => {
+                    handleLogout();
+                    setIsOpen(false);
+                  }}
+                  className="w-full bg-red-500 text-white font-semibold py-2 rounded-md shadow-lg hover:scale-105 transition-transform duration-300"
+                >
+                  Logout
+                </Button>
+              )}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
-  )
+    </nav>
+  );
 }
