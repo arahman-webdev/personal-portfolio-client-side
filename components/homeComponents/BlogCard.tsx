@@ -1,5 +1,4 @@
 import Image from "next/image";
-import postImg1 from '../../images/post-1.webp'
 import { Calendar, User } from "lucide-react";
 import Link from "next/link";
 import { IPost } from "@/types";
@@ -12,10 +11,8 @@ const BlogCard = ({post}:{post:IPost}) => {
   title,
   content,
   thumbnail,
-  thumbnailId,
-  published,
   createdAt,
-  updatedAt} = post
+  } = post
 
   const formattedDate = new Date(createdAt).toLocaleDateString("en-US", {
   year: "numeric",

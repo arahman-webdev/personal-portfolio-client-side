@@ -14,6 +14,7 @@ export default function Navbar() {
 
   const pathName = usePathname()
   const [user, setUser] = useState<{ name: string } | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = useState(true);
 
 
