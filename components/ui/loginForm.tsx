@@ -26,6 +26,8 @@ import {
 import { toast } from "sonner";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Password from "./PasswordInput";
+import { useRouter } from "next/navigation";
+
 
 type LoginRequest = {
     email: string;
@@ -37,6 +39,8 @@ export function LoginForm({
     ...props
 }: React.ComponentProps<"div">) {
     const form = useForm<LoginRequest>()
+
+    const router = useRouter()
 
 const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
   try {
@@ -52,7 +56,13 @@ const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
 
     const resData = await res.json()
     console.log(resData)
+    console.log(resData?.data)
 
+    if(resData?.success){
+        toast.success("Logged in successfully")
+
+        if(resData?.data?.user?.role === "ADMIN") router.push('/dashboard')
+    }
    
   } catch (error: any) {
     console.log(error)

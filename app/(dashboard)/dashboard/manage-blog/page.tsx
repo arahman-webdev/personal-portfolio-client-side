@@ -21,7 +21,6 @@ export default function ManageBlog() {
     const data = await res.json();
     setBlogs(data.data);
     console.log(data)
-  
   };
 
   useEffect(() => {

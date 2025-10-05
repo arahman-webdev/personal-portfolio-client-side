@@ -10,7 +10,7 @@ const PageSection = ({ activeLink}:{activeLink:string}) => {
                 <div className='py-32 md:py-56 relative flex justify-center items-center text-white'>
                     <nav className='text-sm md:text-base font-medium '><Link className='hover:text-gray-200 transition' href={'/'}>Home</Link>
                     <span className='opacity-70'> / </span>
-                    <span>{activeLink}</span>
+                    <span className='text-blue-400 underline'>{activeLink}</span>
                     </nav>
                 </div>
             </div>

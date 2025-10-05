@@ -8,6 +8,7 @@ const BlogCard = ({post}:{post:IPost}) => {
 
   const {
 
+  id,
   title,
   content,
   thumbnail,
@@ -65,12 +66,12 @@ const BlogCard = ({post}:{post:IPost}) => {
 
             {/* Read More CTA */}
             <div>
-              <a
-                href="#"
+              <Link
+                href={`/blog/${id}`}
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-[#8236fb] to-[#076ef4] text-transparent bg-clip-text font-medium hover:underline"
               >
                 Read More →
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -3,17 +3,35 @@
 import Link from "next/link";
 import { FileText, Home, LayoutDashboard, LogOut, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Sidebar() {
   const router = useRouter();
+const [user, setUser] = useState<{ name: string } | null>(null);
 
-  const handleLogout = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/logout`, {
-      method: "POST",
-      credentials: "include",
-    });
-    router.push("/login");
+    const handleLogout = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/v1/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      if (res.ok) {
+        setUser(null); 
+        router.push('/login')
+      } 
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
+
+  // const handleLogout = async () => {
+  //   await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/logout`, {
+  //     method: "POST",
+  //     credentials: "include",
+  //   });
+  //   router.push("/login");
+  // };
 
   return (
     <div className="w-64 bg-[#140F37] text-white flex flex-col justify-between p-6 shadow-lg">

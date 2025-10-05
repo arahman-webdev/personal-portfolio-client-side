@@ -13,55 +13,55 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   const pathName = usePathname()
-const [user, setUser] = useState<{ name: string } | null>(null);
-const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<{ name: string } | null>(null);
+  const [loading, setLoading] = useState(true);
 
 
-useEffect(() => {
-  const fetchUser = async () => {
-    try {
-      const res = await fetch("http://localhost:5000/api/v1/user/me", {
-        method: "GET",
-        credentials: "include", // needed if using cookies for auth
-      });
-      const data = await res.json();
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/v1/user/me", {
+          method: "GET",
+          credentials: "include", // needed if using cookies for auth
+        });
+        const data = await res.json();
 
-      
 
-      if (data.success) {
-        setUser(data.data); // assuming your backend returns { success, data: user }
-      } else {
+
+        if (data.success) {
+          setUser(data.data); // assuming your backend returns { success, data: user }
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
         setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/v1/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      if (res.ok) {
+        setUser(null); // clear user state
+        console.log("Logged out successfully");
+      } else {
+        console.log("Logout failed");
       }
     } catch (error) {
-      console.error("Failed to fetch user:", error);
-      setUser(null);
-    } finally {
-      setLoading(false);
+      console.error("Logout error:", error);
     }
   };
-
-  fetchUser();
-}, []);
-
-
-const handleLogout = async () => {
-  try {
-    const res = await fetch("http://localhost:5000/api/v1/auth/logout", {
-      method: "POST",
-      credentials: "include", 
-    });
-
-    if (res.ok) {
-      setUser(null); // clear user state
-      console.log("Logged out successfully");
-    } else {
-      console.log("Logout failed");
-    }
-  } catch (error) {
-    console.error("Logout error:", error);
-  }
-};
 
   return (
     <div className="absolute top-0 left-0 w-full z-50 py-5 px-3">
@@ -71,15 +71,16 @@ const handleLogout = async () => {
           <Image src={logo} alt="logo" width={150} height={150} />
           {/* Desktop Menu */}
           <ul className="hidden lg:flex gap-6 bg-gradient-to-r from-[#8236fb] to-[#076ef4] text-transparent bg-clip-text font-medium uppercase tracking-wide">
-            <Link 
-            className={`${pathName === '/' ? "text-indigo-400 underline":"text-white"}`}
-            href={"/"}>Home</Link>
-            <Link 
-            className={`${pathName === '/about' ? "text-blue-400 underline":"text-white"}`}
-            href={"/about"}>About</Link>
-            <Link className={`${pathName === '/service' ? "text-blue-400 underline":"text-white"}`} href={"/service"}>Service</Link>
-            <Link className={`${pathName === '/project' ? "text-blue-400 underline":"text-white"}`} href={"/project"}>Project</Link>
-            <Link className={`${pathName === '/contact' ? "text-blue-400 underline":"text-white"}`} href={"/contact"}>Contact</Link>
+            <Link
+              className={`${pathName === '/' ? "text-indigo-400 underline" : "text-white"}`}
+              href={"/"}>Home</Link>
+            <Link
+              className={`${pathName === '/about' ? "text-blue-400 underline" : "text-white"}`}
+              href={"/about"}>About</Link>
+            <Link className={`${pathName === '/service' ? "text-blue-400 underline" : "text-white"}`} href={"/service"}>Service</Link>
+            <Link className={`${pathName === '/blog' ? "text-blue-400 underline" : "text-white"}`} href={"/blog"}>Blog</Link>
+            <Link className={`${pathName === '/project' ? "text-blue-400 underline" : "text-white"}`} href={"/project"}>Project</Link>
+            <Link className={`${pathName === '/contact' ? "text-blue-400 underline" : "text-white"}`} href={"/contact"}>Contact</Link>
           </ul>
         </div>
 
@@ -92,10 +93,13 @@ const handleLogout = async () => {
               <span className="font-bold text-white">+880 1719617907</span>
             </div>
           </div>
-          <Button onClick={handleLogout}>Logout</Button>
-          <Link href={'/login'} className="bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-600 text-white text-sm rounded-md py-2 px-6 font-semibold uppercase shadow-lg hover:scale-105 transition-transform duration-300">
-            Login {user?.name}
-          </Link>
+          {
+            user?.name ? (<Button className="bg-red-500 text-white" onClick={handleLogout}>Logout</Button>) : (<Link href={'/login'} className="bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-600 text-white text-sm rounded-md py-2 px-6 font-semibold uppercase shadow-lg hover:scale-105 transition-transform duration-300">
+              Login {user?.name}
+            </Link>)
+          }
+
+
         </div>
 
         {/* Mobile Menu Button */}

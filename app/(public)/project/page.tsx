@@ -9,7 +9,6 @@ const Projects = () => {
   return (
     <div>
       <div>
-
         <PageSection activeLink="Projects" />
       </div>
 
