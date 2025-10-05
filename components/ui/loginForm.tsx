@@ -22,7 +22,7 @@ import {
 import { toast } from "sonner";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Password from "./PasswordInput";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 type LoginRequest = {
     email: string;
@@ -31,7 +31,6 @@ type LoginRequest = {
 
 export default function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
     const form = useForm<LoginRequest>();
-    const router = useRouter();
     const searchParams = useSearchParams();
     const from = searchParams.get("from");
 
@@ -45,7 +44,7 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(data),
-                    credentials: "include", // ✅ important for cookies
+                    credentials: "include", 
                 }
             );
 
