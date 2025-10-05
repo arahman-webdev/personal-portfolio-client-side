@@ -3,35 +3,36 @@ import ProjectCard from "./ProjectCard";
 
 const projects = [
   {
-    title: "Ecommerce Store",
-    description: "A full-featured eCommerce web app with cart, checkout, and admin dashboard.",
+    title: "Static Website",
+    description: "A full-featured static web app",
     image: "https://i.ibb.co.com/wNB1jMHW/project-2.png",
     tech: ["Next.js", "TypeScript", "TailwindCSS", "Prisma"],
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/username/project1",
+    liveUrl: "https://woiqo.com/",
+    githubUrl: "https://github.com/desyed/woiqo",
   },
+
   {
-    title: "Portfolio Website",
-    description: "Personal portfolio to showcase skills, projects, and blogs with ISR support.",
+    title: "Hotel Booking Website",
+    description: "The Hotel Booking Website allows users to search and book hotels, view available rooms, and manage their bookings with ease. The platform features a responsive design and an intuitive user interface for an optimal booking experience.",
     image: "https://i.ibb.co.com/CsMykSyV/project-3.png",
-    tech: ["React", "Next.js", "Framer Motion"],
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/username/project2",
+    tech: ["React", "React Router", "MongoDB"],
+    liveUrl: "aptease-app.netlify.app",
+    githubUrl: "https://github.com/arahman-webdev/assingment-test-12-client",
   },
   {
     title: "Portfolio Website",
-    description: "Personal portfolio to showcase skills, projects, and blogs with ISR support.",
+    description: "SwiftParcel is a secure, role-based parcel delivery system designed to streamline the shipping process for both senders and receivers. Admins have comprehensive control, managing parcels, updating statuses, and ensuring smooth operations.",
     image: "https://i.ibb.co.com/bgx9vdxk/project-1.png",
-    tech: ["React", "Next.js", "Framer Motion"],
+    tech: ["React", "Next.js", "Typescript", "Prisma", "JWT"],
     liveUrl: "https://example.com",
-    githubUrl: "https://github.com/username/project2",
+    githubUrl: "https://github.com/arahman-webdev/courier-management-frontend",
   },
 ];
 
 const ProjectSection = () => {
-    return (
-        <div>
-                  <section className="py-20 sm:py-28 bg-gradient-to-b from-gray-50 to-white relative">
+  return (
+    <div>
+      <section className="py-20 sm:py-28 bg-gradient-to-b from-gray-50 to-white relative">
         <div className="container mx-auto px-6 lg:px-12">
           {/* Section Title */}
           <SectionHeading title={'Projects'} subTitle="A selection of projects that highlight my skills in building modern, scalable, and user-friendly web applications." />
@@ -43,8 +44,8 @@ const ProjectSection = () => {
           </div>
         </div>
       </section>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default ProjectSection;

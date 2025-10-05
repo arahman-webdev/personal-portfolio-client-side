@@ -1,40 +1,25 @@
 
-
-
-
-// export const generateStaticParams = async()=>{ // manually set id
-//     return [
-//         {
-//             slug: "2"
-//         },
-//     ];
-// }
-
 import PageSection from "@/sharedComponents/PageSection"
 import { IPost } from "@/types"
 import Image from "next/image";
 
-// export const generateMetadata = async ({ params }: { params: Promise<{ slug: string }> }) => {
-//     const { slug } = await params
-//     const res = await fetch(`http://localhost:5000/api/v1/post/${slug}`)
-//     const blog = await res.json()
 
-//     return {
-//         title: blog?.title
-//     }
-// }
+export async function generateStaticParams() {
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/post`);
+        const { data: posts } = await res.json();
 
+        return (
+            posts?.map((post: IPost) => ({
+                slug: String(post.id),
+            })) || []
+        );
+    } catch (error) {
+        console.error("Error generating static params:", error);
+        return [];
+    }
+}
 
-
-
-// export const generateStaticParams = async () => {
-//     const res = await fetch(`http://localhost:5000/api/v1/post`)
-//     const { data: posts } = await res.json()
-
-//     return posts.slice(0, 2).map((blog: IPost) => ({
-//         slug: String(blog.id)
-//     }))
-// }
 
 const PostDetailPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
 
@@ -42,7 +27,9 @@ const PostDetailPage = async ({ params }: { params: Promise<{ slug: string }> })
 
 
 
-    const res = await fetch(`http://localhost:5000/api/v1/post/${slug}`)
+    const res = await fetch(`https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/post/${slug}`, {
+        next: { revalidate: 120 }
+    })
 
     const data = await res.json()
 
@@ -51,6 +38,10 @@ const PostDetailPage = async ({ params }: { params: Promise<{ slug: string }> })
     console.log(blog)
 
     console.log(res, slug)
+
+    if(!blog){
+        <div><p>Blog not found</p></div>
+    }
 
 
 

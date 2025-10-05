@@ -11,7 +11,7 @@ const [user, setUser] = useState<{ name: string } | null>(null);
 
     const handleLogout = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/v1/auth/logout", {
+      const res = await fetch("https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/auth/logout", {
         method: "POST",
         credentials: "include",
       });
@@ -25,13 +25,7 @@ const [user, setUser] = useState<{ name: string } | null>(null);
     }
   };
 
-  // const handleLogout = async () => {
-  //   await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/logout`, {
-  //     method: "POST",
-  //     credentials: "include",
-  //   });
-  //   router.push("/login");
-  // };
+
 
   return (
     <div className="w-64 bg-[#140F37] text-white flex flex-col justify-between p-6 shadow-lg">

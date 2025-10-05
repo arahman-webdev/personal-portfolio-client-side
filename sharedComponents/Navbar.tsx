@@ -20,7 +20,7 @@ export default function Navbar() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/v1/user/me", {
+        const res = await fetch("https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/user/me", {
           method: "GET",
           credentials: "include", // needed if using cookies for auth
         });
@@ -47,7 +47,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/v1/auth/logout", {
+      const res = await fetch("https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/auth/logout", {
         method: "POST",
         credentials: "include",
       });

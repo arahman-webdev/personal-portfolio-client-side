@@ -37,8 +37,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
 
       {/* Content */}
       <div className="p-6 space-y-4">
-        <h3 className="text-2xl font-bold text-gray-900">{project.title}</h3>
-        <p className="text-gray-600 text-base">{project.description}</p>
+        <h3 className="text-2xl font-bold text-gray-900 ">{project.title}</h3>
+        <p className="text-gray-600 text-base line-clamp-2">{project.description}</p>
 
         {/* Tech Stack */}
         <div className="flex flex-wrap gap-2 pt-2">
