@@ -22,7 +22,7 @@ export default async function DashboardLayout({
   console.log("from dashboard layout", token)
 
   if (!token) {
-    redirect("/"); // ✅ Secure server-side redirect
+    redirect("/login"); // ✅ Secure server-side redirect
   }
 
   return (

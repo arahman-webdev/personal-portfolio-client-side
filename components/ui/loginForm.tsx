@@ -26,7 +26,7 @@ import {
 import { toast } from "sonner";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Password from "./PasswordInput";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 
 type LoginRequest = {
@@ -41,6 +41,10 @@ export function LoginForm({
     const form = useForm<LoginRequest>()
 
     const router = useRouter()
+   const searchParams = useSearchParams(); 
+
+// Get the 'from' value from the search parameters
+const from = searchParams.get('from')
 
 const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
   try {
@@ -61,7 +65,9 @@ const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
     if(resData?.success){
         toast.success("Logged in successfully")
 
-        if(resData?.data?.user?.role === "ADMIN") router.push('/dashboard')
+        if(resData?.data?.user?.role === "ADMIN") {
+            router.push(from ? from : '/dashboard');
+        }
     }
    
   } catch (error: any) {
