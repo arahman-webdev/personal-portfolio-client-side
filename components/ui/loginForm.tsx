@@ -43,7 +43,7 @@ export function LoginForm({
     const router = useRouter()
    const searchParams = useSearchParams(); 
 
-// Get the 'from' value from the search parameters
+
 const from = searchParams.get('from')
 
 const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
@@ -53,7 +53,7 @@ const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data), // ✅ send { email, password }
+      body: JSON.stringify(data), 
       credentials: "include"
     });
 

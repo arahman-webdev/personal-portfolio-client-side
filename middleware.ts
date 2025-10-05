@@ -8,7 +8,7 @@ export function middleware(req: NextRequest) {
   // Allow public paths to pass
   if (
     pathname.startsWith("/_next") ||
-    pathname.startsWith("/api/public") || // public APIs
+    pathname.startsWith("/api/public") || 
     pathname === "/login" ||
     pathname === "/"
   ) {
@@ -28,7 +28,7 @@ export function middleware(req: NextRequest) {
   return NextResponse.next();
 }
 
-// Limit middleware to only dashboard routes for perf
+
 export const config = {
   matcher: ["/dashboard/:path*"],
 };
