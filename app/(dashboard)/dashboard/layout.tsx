@@ -4,8 +4,8 @@ import "../../globals.css";
 import Sidebar from "./dashboardComponents/Sidebar";
 import Topbar from "./dashboardComponents/Topbar";
 import { Toaster } from "@/components/ui/sonner";
-import { cookies } from "next/headers";
-import AuthProvider from "@/app/provider/AuthProvider";
+
+
 
 
 
@@ -16,9 +16,6 @@ export default async function DashboardLayout({
 }) {
 
 
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get("accessToken")?.value || null;
-  const refreshToken = cookieStore.get("refreshToken")?.value || null;
 
   return (
     <>
@@ -33,9 +30,9 @@ export default async function DashboardLayout({
 
               <Topbar />
               <main className="flex-1 overflow-y-auto p-4">
-                <AuthProvider initialAccessToken={accessToken} initialRefreshToken={refreshToken}>
+
                   {children}
-                </AuthProvider>
+
 
                 <Toaster richColors position="top-center" />
               </main>

@@ -16,7 +16,7 @@ const BlogPost = async () => {
 
     const { data: posts } = await data.json()
 
-    console.log("from post", posts)
+
 
     if (!posts) {
         <div>blog not found</div>
