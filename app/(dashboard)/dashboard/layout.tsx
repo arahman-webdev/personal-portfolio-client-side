@@ -29,12 +29,12 @@ export default async function DashboardLayout({
       <html lang="en">
         <body cz-shortcut-listen="true">
           <div className="flex h-screen bg-[#F5F7F9] overflow-hidden">
-            {/* Pass userData as a prop */}
+
             <Sidebar  /> 
 
-            {/* Main Content (scrollable) */}
+
             <div className="flex-1 flex flex-col">
-              {/* Pass userData as a prop */}
+
               <Topbar  /> 
               <main className="flex-1 overflow-y-auto p-4">
                 {children}

@@ -9,7 +9,7 @@ import { useState } from "react";
 export default function Sidebar() {
   const router = useRouter();
   const [user, setUser] = useState<{ name: string } | null>(null);
-  const [isOpen, setIsOpen] = useState(false); // For mobile toggle
+  const [isOpen, setIsOpen] = useState(false); 
 
   const handleLogout = async () => {
     try {
