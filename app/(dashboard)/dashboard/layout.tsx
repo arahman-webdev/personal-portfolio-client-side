@@ -5,7 +5,8 @@ import Sidebar from "./dashboardComponents/Sidebar";
 import Topbar from "./dashboardComponents/Topbar";
 import { Toaster } from "@/components/ui/sonner";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import AuthProvider from "@/app/provider/AuthProvider";
+
 
 
 export default async function DashboardLayout({
@@ -16,13 +17,8 @@ export default async function DashboardLayout({
 
 
   const cookieStore = await cookies();
-  const accessToken = cookieStore.get("accessToken")?.value;
-  console.log("Access Token:", accessToken);
-
-
-   if (!accessToken) {
-    redirect(`/login?from=/dashboard`);
-  }
+  const accessToken = cookieStore.get("accessToken")?.value || null;
+  const refreshToken = cookieStore.get("refreshToken")?.value || null;
 
   return (
     <>
@@ -30,14 +26,17 @@ export default async function DashboardLayout({
         <body cz-shortcut-listen="true">
           <div className="flex h-screen bg-[#F5F7F9] overflow-hidden">
 
-            <Sidebar  /> 
+            <Sidebar />
 
 
             <div className="flex-1 flex flex-col">
 
-              <Topbar  /> 
+              <Topbar />
               <main className="flex-1 overflow-y-auto p-4">
-                {children}
+                <AuthProvider initialAccessToken={accessToken} initialRefreshToken={refreshToken}>
+                  {children}
+                </AuthProvider>
+
                 <Toaster richColors position="top-center" />
               </main>
             </div>
