@@ -8,6 +8,7 @@ import Link from "next/link";
 import { PhoneCall, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { ProfileOpen } from "@/components/layout/ProfileOpen";
 
 
 export default function Navbar() {
@@ -17,12 +18,12 @@ export default function Navbar() {
   const [user, setUser] = useState<{ name: string; role?: string } | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Fetch logged-in user
+  
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const res = await fetch(
-          "https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/user/me",
+          "http://localhost:5000/api/v1/user/me",
           {
             method: "GET",
             credentials: "include",
@@ -112,7 +113,7 @@ export default function Navbar() {
           {!loading && (
             <>
               {user ? (
-                <button onClick={handleLogout}>Logout</button>
+                <ProfileOpen name={user.name} role={user.role} MyDashboard='' logout={handleLogout} />
                 
               ) : (
                 <Link

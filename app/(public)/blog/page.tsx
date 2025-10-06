@@ -4,6 +4,15 @@ import SectionHeading from "@/sharedComponents/SectionHeading";
 import { IPost } from "@/types";
 
 
+export const metadata = {
+  title: "Blog | Abdur Rahman Portfolio",
+  description: "Check out the latest news, tutorials, and insights from Abdur Rahman.",
+  keywords: ["blog", "developer", "tutorials", "news", "Abdur Rahman"],
+  robots: "index, follow",
+};
+
+
+
 const BlogPage = async () => {
     const data = await fetch('https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/post', {
         next: {

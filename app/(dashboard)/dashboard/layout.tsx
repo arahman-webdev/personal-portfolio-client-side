@@ -1,5 +1,3 @@
-
-
 import React from "react";
 
 import "../../globals.css";
@@ -16,30 +14,28 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
 
+
   const cookieStore = await cookies();
-  const token = cookieStore.get("refreshToken")?.value;
+  const accessToken = cookieStore.get("accessToken")?.value;
+  console.log("Access Token:", accessToken);
 
-  console.log("from dashboard layout", token)
 
-  if (!token) {
-    redirect("/login"); 
+   if (!accessToken) {
+    redirect(`/login?from=/dashboard`);
   }
 
   return (
     <>
-
       <html lang="en">
-        <body
-          cz-shortcut-listen="true"
-
-        >
+        <body cz-shortcut-listen="true">
           <div className="flex h-screen bg-[#F5F7F9] overflow-hidden">
-
-              <Sidebar />
+            {/* Pass userData as a prop */}
+            <Sidebar  /> 
 
             {/* Main Content (scrollable) */}
             <div className="flex-1 flex flex-col">
-              <Topbar />
+              {/* Pass userData as a prop */}
+              <Topbar  /> 
               <main className="flex-1 overflow-y-auto p-4">
                 {children}
                 <Toaster richColors position="top-center" />
@@ -49,6 +45,5 @@ export default async function DashboardLayout({
         </body>
       </html>
     </>
-
   );
 }

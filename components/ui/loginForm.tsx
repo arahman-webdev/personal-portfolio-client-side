@@ -22,7 +22,7 @@ import {
 import { toast } from "sonner";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Password from "./PasswordInput";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 type LoginRequest = {
   email: string;
@@ -32,8 +32,8 @@ type LoginRequest = {
 export default function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const form = useForm<LoginRequest>();
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const from = searchParams.get("from");
+
+
 
   const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
     try {
@@ -57,7 +57,7 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
 
         // ✅ Redirect based on user role or previous path
         if (resData?.data?.user?.role === "ADMIN") {
-          router.push(from || "/dashboard");
+          router.push("/dashboard");
         } else {
           router.push("/");
         }

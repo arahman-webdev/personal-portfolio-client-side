@@ -1,6 +1,15 @@
 import PageSection from "@/sharedComponents/PageSection";
 import About from '@/components/homeComponents/About';
 
+
+export const metadata = {
+  title: "About Me | Abdur Rahman Portfolio",
+  description: "Learn more about Abdur Rahman, a full stack developer and IT expert.",
+  keywords: ["about me", "developer", "portfolio", "Abdur Rahman"],
+  robots: "index, follow",
+};
+
+
 const AboutPage = () => {
     return (
         <div>

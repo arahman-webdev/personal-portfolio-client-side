@@ -1,6 +1,11 @@
 import PageSection from "@/sharedComponents/PageSection";
 
-
+export const metadata = {
+  title: "Contact | Abdur Rahman Portfolio",
+  description: "Get in touch with Abdur Rahman for projects, collaboration, or inquiries via email or phone.",
+  keywords: ["contact", "portfolio", "get in touch", "Abdur Rahman"],
+  robots: "index, follow",
+};
 
 const ContactPage = () => {
     return (
