@@ -23,7 +23,7 @@ export default function Navbar() {
     const fetchUser = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/v1/user/me",
+          "https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/user/me",
           {
             method: "GET",
             credentials: "include",

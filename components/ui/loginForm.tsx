@@ -45,7 +45,7 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
             "Content-Type": "application/json",
           },
           body: JSON.stringify(data),
-          credentials: "include", // ✅ important for cookies
+          credentials: "include", 
         }
       );
 
