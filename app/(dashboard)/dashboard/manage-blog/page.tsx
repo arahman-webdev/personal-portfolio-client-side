@@ -77,7 +77,7 @@ export default function ManageBlog() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="max-w-6xl mx-auto bg-white shadow-2xl rounded-2xl p-6 sm:p-10"
+        className="max-w-6xl mx-auto bg-white shadow-2xl rounded-2xl p-6 sm:p-10 overflow-hidden"
       >
         {/* Title Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
@@ -102,98 +102,83 @@ export default function ManageBlog() {
             No blogs found. Start by creating one!
           </div>
         ) : (
-          <div className="relative mt-4">
-            <div
-              className="
-                overflow-x-auto overflow-y-auto
-                scrollbar-thin scrollbar-thumb-[#8236fb]/60 scrollbar-track-transparent
-                hover:scrollbar-thumb-[#8236fb]
-                rounded-xl border border-gray-200 shadow-sm w-full
-                max-h-[70vh]
-              "
-              style={{ WebkitOverflowScrolling: "touch" }}
-            >
-              <div className="min-w-[750px]">
-                <Table className="w-full">
-                  <TableHeader className="bg-gradient-to-r from-[#8236fb]/10 to-[#076ef4]/10">
-                    <TableRow>
-                      <TableHead className="text-left">Title</TableHead>
-                      <TableHead className="hidden sm:table-cell text-left">Excerpt</TableHead>
-                      <TableHead className="text-center">Published</TableHead>
-                      <TableHead className="text-center">Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
+          <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+            <Table>
+              <TableHeader className="bg-gradient-to-r from-[#8236fb]/10 to-[#076ef4]/10">
+                <TableRow>
+                  <TableHead className="text-left">Title</TableHead>
+                  <TableHead className="hidden sm:table-cell text-left">Excerpt</TableHead>
+                  <TableHead className="text-center">Published</TableHead>
+                  <TableHead className="text-center">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {blogs.map((blog) => (
+                  <TableRow key={blog.id} className="hover:bg-gray-50 transition">
+                    <TableCell className="font-medium">{blog.title}</TableCell>
+                    <TableCell className="hidden sm:table-cell text-gray-600">
+                      {blog.excerpt.length > 80
+                        ? blog.excerpt.slice(0, 80) + "..."
+                        : blog.excerpt}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      <span
+                        className={`px-3 py-1 rounded-full text-sm font-medium ${
+                          blog.published
+                            ? "bg-green-100 text-green-700"
+                            : "bg-yellow-100 text-yellow-700"
+                        }`}
+                      >
+                        {blog.published ? "Published" : "Draft"}
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-center flex justify-center gap-3">
+                      <Link
+                        href={`/dashboard/update-post/${blog.id}`}
+                        className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium text-[#8236fb] border border-[#8236fb]/30 hover:bg-gradient-to-r hover:from-[#8236fb] hover:to-[#076ef4] hover:text-white transition-all duration-300"
+                      >
+                        <Pencil className="w-4 h-4" />
+                        Edit
+                      </Link>
 
-                  <TableBody>
-                    {blogs.map((blog) => (
-                      <TableRow key={blog.id} className="hover:bg-gray-50 transition">
-                        <TableCell className="font-medium">{blog.title}</TableCell>
-
-                        <TableCell className="hidden sm:table-cell text-gray-600">
-                          {blog.excerpt.length > 80
-                            ? blog.excerpt.slice(0, 80) + "..."
-                            : blog.excerpt}
-                        </TableCell>
-
-                        <TableCell className="text-center">
-                          <span
-                            className={`px-3 py-1 rounded-full text-sm font-medium ${
-                              blog.published
-                                ? "bg-green-100 text-green-700"
-                                : "bg-yellow-100 text-yellow-700"
-                            }`}
+                      {/* Delete Button */}
+                      <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                        <AlertDialogTrigger asChild>
+                          <Button
+                            onClick={() => {
+                              setSelectedBlogId(blog.id);
+                              setIsDialogOpen(true);
+                            }}
+                            size="sm"
+                            variant="destructive"
+                            className="flex items-center gap-1 bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium transition"
                           >
-                            {blog.published ? "Published" : "Draft"}
-                          </span>
-                        </TableCell>
+                            <Trash2 className="w-4 h-4" />
+                            Delete
+                          </Button>
+                        </AlertDialogTrigger>
 
-                        <TableCell className="text-center flex justify-center gap-3 min-w-[150px]">
-                          <Link
-                            href={`/dashboard/update-post/${blog.id}`}
-                            className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium text-[#8236fb] border border-[#8236fb]/30 hover:bg-gradient-to-r hover:from-[#8236fb] hover:to-[#076ef4] hover:text-white transition-all duration-300"
-                          >
-                            <Pencil className="w-4 h-4" />
-                            Edit
-                          </Link>
-
-                          <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                            <AlertDialogTrigger asChild>
-                              <Button
-                                onClick={() => {
-                                  setSelectedBlogId(blog.id);
-                                  setIsDialogOpen(true);
-                                }}
-                                size="sm"
-                                variant="destructive"
-                                className="flex items-center gap-1 bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium transition"
-                              >
-                                <Trash2 className="w-4 h-4" />
-                                Delete
-                              </Button>
-                            </AlertDialogTrigger>
-
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>Confirm Delete</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  Are you sure you want to delete this blog? This action cannot be undone.
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction onClick={confirmDelete}>
-                                  Delete
-                                </AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            </div>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Confirm Delete</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Are you sure you want to delete this blog? This action cannot
+                              be undone.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={confirmDelete}>
+                              Delete
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
         )}
       </motion.div>

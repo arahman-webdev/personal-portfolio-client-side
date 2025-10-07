@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/app/components/ui/button";
 import {
@@ -30,43 +30,46 @@ type LoginRequest = {
 };
 
 export default function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
-  const form = useForm<LoginRequest>();
+  const form = useForm<LoginRequest>({
+    mode: "onBlur",
+    defaultValues: { email: "", password: "" },
+  });
   const router = useRouter();
-
-
+  const [loading, setLoading] = useState(false);
 
   const onSubmit: SubmitHandler<LoginRequest> = async (data) => {
+    setLoading(true);
     try {
       const res = await fetch(
         "https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/auth/login",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
-          credentials: "include", 
+          credentials: "include",
         }
       );
 
       const resData = await res.json();
-      console.log(resData);
 
+     
       if (resData?.success) {
         toast.success("Logged in successfully ✅");
-
-        // ✅ Redirect based on user role or previous path
+        // Redirect based on role
         if (resData?.data?.user?.role === "ADMIN") {
           router.push("/dashboard");
         } else {
           router.push("/");
         }
       } else {
-        toast.error(resData?.message || "Invalid credentials");
+        toast.error(resData?.message || "Invalid email or password");
+        console.log(resData?.message)
       }
     } catch (error: any) {
       console.error(error);
-      toast.error("Something went wrong");
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -80,28 +83,32 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
     >
       <Card className="w-full max-w-md mx-auto shadow-2xl">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">
-            Log in to your account
-          </CardTitle>
+          <CardTitle className="text-2xl font-bold">Log in to your account</CardTitle>
         </CardHeader>
 
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              {/* Email Field */}
               <FormField
                 control={form.control}
                 name="email"
+                rules={{
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Invalid email address",
+                  },
+                }}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input
-                        className="p-6"
                         placeholder="Enter your email"
                         type="email"
-                        required
                         {...field}
-                        value={field.value || ""}
+                        disabled={loading}
                       />
                     </FormControl>
                     <FormMessage />
@@ -109,14 +116,19 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
                 )}
               />
 
+              {/* Password Field */}
               <FormField
                 control={form.control}
                 name="password"
+                rules={{
+                  required: "Password is required",
+                  minLength: { value: 6, message: "Password must be at least 6 characters" },
+                }}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Password {...field} value={field.value || ""} />
+                      <Password {...field} disabled={loading} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -125,9 +137,10 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
 
               <Button
                 type="submit"
+                disabled={loading}
                 className="w-full bg-[#373DD2] hover:bg-[#2d34b8] text-white font-semibold rounded-full py-2 text-base"
               >
-                LOG IN
+                {loading ? "Logging in..." : "LOG IN"}
               </Button>
             </form>
           </Form>

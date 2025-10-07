@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -7,6 +8,7 @@ import { Input } from "@/app/components/ui/input";
 import { useFileUpload } from "@/hooks/use-file-upload";
 import Image from "next/image";
 import { toast } from "sonner";
+import { redirect } from "next/navigation";
 
 export default function CreateBlogForm() {
   const maxSizeMB = 5;
@@ -25,28 +27,56 @@ export default function CreateBlogForm() {
   const [published, setPublished] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-     const toastId = toast.loading("Creating tour....");
     e.preventDefault();
-    if (!title || !content) return;
 
-    const formData = new FormData();
-    formData.append("data", JSON.stringify({ title, excerpt, content, published }));
-    if (files[0]?.file instanceof File) {
-      formData.append("thumbnail", files[0].file);
+ 
+    if (!title || !content) {
+      toast.error("Title and content are required");
+      return;
     }
+
+    const toastId = toast.loading("Creating blog post...");
 
     try {
-      const res = await fetch("https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/post", { method: "POST", body: formData });
-      const data = await res.json();
-      console.log(data);
-      // Optionally reset form here
-      if(data?.data?.id){
-        toast.success(`${data?.message}`, {id:toastId})
+      const formData = new FormData();
+      formData.append("data", JSON.stringify({ title, excerpt, content, published }));
+
+      if (files[0]?.file instanceof File) {
+        formData.append("thumbnail", files[0].file);
       }
-    } catch (err) {
-      console.error(err);
+
+      const res = await fetch(
+        "https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/post",
+        {
+          method: "POST",
+          body: formData,
+          // ✅ Ensure credentials are included if backend uses cookies
+          credentials: "include",
+        }
+      );
+
+      const data = await res.json();
+      console.log("Create Post Response:", data);
+
+      if (data.success) {
+        toast.success(data.message || "Blog post created successfully", { id: toastId });
+        // Optionally reset form and files
+        setTitle("");
+        setContent("");
+        setExcerpt("");
+        setPublished(false);
+
+      
+
+      } else {
+        toast.error(data.message || "Failed to create post", { id: toastId });
+      }
+    } catch (error: any) {
+      console.error("Create Post Error:", error);
+      toast.error(error?.message || "Something went wrong", { id: toastId });
     }
   };
+
 
   return (
     <div className="py-10">
