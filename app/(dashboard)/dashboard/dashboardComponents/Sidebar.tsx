@@ -2,8 +2,18 @@
 "use client";
 
 import Link from "next/link";
-import { FileText, Home, LayoutDashboard, LogOut, Plus, Menu, X } from "lucide-react";
-import { redirect, useRouter } from "next/navigation";
+import {
+  FileText,
+  Home,
+  LayoutDashboard,
+  LogOut,
+  Plus,
+  Menu,
+  X,
+  Loader2,
+  ShieldAlert,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Sidebar() {
@@ -12,6 +22,7 @@ export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  // ✅ Fetch user info (authentication check)
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -22,30 +33,37 @@ export default function Sidebar() {
             credentials: "include",
           }
         );
+
         const data = await res.json();
 
         if (data.success) {
           setUser(data.data);
         } else {
           setUser(null);
+          router.push("/login");
         }
       } catch (error) {
         console.error("Failed to fetch user:", error);
         setUser(null);
+        router.push("/login");
       } finally {
         setLoading(false);
       }
     };
 
     fetchUser();
-  }, []);
+  }, [router]);
 
+  // ✅ Logout
   const handleLogout = async () => {
     try {
-      const res = await fetch("https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/auth/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+      const res = await fetch(
+        "https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/auth/logout",
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
 
       if (res.ok) {
         setUser(null);
@@ -56,19 +74,43 @@ export default function Sidebar() {
     }
   };
 
+  // ✅ Links
   const links = [
     { href: "/", label: "Home", icon: <Home size={20} /> },
     { href: "/dashboard", label: "Dashboard", icon: <LayoutDashboard size={20} /> },
     { href: "/dashboard/create-blog", label: "Create Blog", icon: <Plus size={20} /> },
-    { href: "/dashboard/manage-blog", label: "Manage Blog", icon: <FileText size={20} /> },
-
+    { href: "/dashboard/manage-blog", label: "Manage Blogs", icon: <FileText size={20} /> },
   ];
 
-  console.log(user?.name)
+  // ✅ Loading screen while checking auth
+  if (loading) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-white">
+        <Loader2 className="w-10 h-10 text-[#8236fb] animate-spin" />
+      </div>
+    );
+  }
 
-// if(!user){
-//   redirect("/login")
-// }
+  // ✅ If not logged in, show restricted screen
+  if (!user) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-[#f6f8ff] to-[#e8ecff] px-4 text-center">
+        <ShieldAlert className="w-16 h-16 text-red-500 mb-4" />
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">Access Denied</h2>
+        <p className="text-gray-600 mb-6">
+          You must be logged in to access the dashboard.
+        </p>
+        <button
+          onClick={() => router.push("/login")}
+          className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#8236fb] to-[#076ef4] text-white font-medium hover:from-[#6d2ce2] hover:to-[#0657c4] transition-all duration-300 shadow-md"
+        >
+          Go to Login
+        </button>
+      </div>
+    );
+  }
+
+  // ✅ Authenticated user sidebar
   return (
     <>
       {/* Mobile toggle button */}
@@ -91,7 +133,7 @@ export default function Sidebar() {
         <div className="flex flex-col justify-between h-full">
           <div>
             <h2 className="text-2xl font-bold mb-10 bg-gradient-to-r from-[#8236fb] to-[#076ef4] text-transparent bg-clip-text">
-              Abdur Rahman
+              {user?.name || "Abdur Rahman"}
             </h2>
 
             <nav className="space-y-4">
@@ -100,7 +142,7 @@ export default function Sidebar() {
                   key={link.href}
                   href={link.href}
                   className="flex items-center gap-3 hover:text-gray-300 transition"
-                  onClick={() => setIsOpen(false)} // Close sidebar on mobile link click
+                  onClick={() => setIsOpen(false)}
                 >
                   {link.icon} {link.label}
                 </Link>
@@ -120,7 +162,7 @@ export default function Sidebar() {
       {/* Overlay for mobile */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/45  z-30 md:hidden"
+          className="fixed inset-0 bg-black/45 z-30 md:hidden"
           onClick={() => setIsOpen(false)}
         ></div>
       )}

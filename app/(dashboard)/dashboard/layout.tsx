@@ -6,7 +6,13 @@ import Topbar from "./dashboardComponents/Topbar";
 import { Toaster } from "@/app/components/ui/sonner";
 
 
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Dashboard | Abdur Rahman",
+  description:
+    "Welcome to your dashboard. Manage your blog posts, create new ones, and customize your portfolio.",
+};
 
 
 export default async function DashboardLayout({

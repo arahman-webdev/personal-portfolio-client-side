@@ -4,7 +4,7 @@ import ProjectCard from "./ProjectCard";
 const projects = [
   {
     title: "Static Website",
-    description: "A full-featured static web app",
+    description: "WOiQO Academy is your direct path to cloud mastery. Whether you’re pivoting your career or seeking professional elevation, our programs provide the personalized guidance and hands-on expertise you need.",
     image: "https://i.ibb.co.com/wNB1jMHW/project-2.png",
     tech: ["Next.js", "TypeScript", "TailwindCSS", "Prisma"],
     liveUrl: "https://woiqo.com/",
@@ -20,7 +20,7 @@ const projects = [
     githubUrl: "https://github.com/arahman-webdev/assingment-test-12-client",
   },
   {
-    title: "Portfolio Website",
+    title: "Courier Service Website",
     description: "SwiftParcel is a secure, role-based parcel delivery system designed to streamline the shipping process for both senders and receivers. Admins have comprehensive control, managing parcels, updating statuses, and ensuring smooth operations.",
     image: "https://i.ibb.co.com/bgx9vdxk/project-1.png",
     tech: ["React", "Next.js", "Typescript", "Prisma", "JWT"],
@@ -37,7 +37,7 @@ const ProjectSection = () => {
           {/* Section Title */}
           <SectionHeading title={'Projects'} subTitle="A selection of projects that highlight my skills in building modern, scalable, and user-friendly web applications." />
           {/* Project Grid */}
-          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-10 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
             {projects.map((p, i) => (
               <ProjectCard key={i} project={p} />
             ))}
