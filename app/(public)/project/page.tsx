@@ -1,6 +1,6 @@
 
-import ProjectSection from "@/components/homeComponents/ProjectSection";
-import PageSection from "@/sharedComponents/PageSection";
+import ProjectSection from "@/app/components/homeComponents/ProjectSection";
+import PageSection from "@/app/sharedComponents/PageSection";
 import React from "react";
 
 

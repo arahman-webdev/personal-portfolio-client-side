@@ -1,4 +1,4 @@
-import PageSection from "@/sharedComponents/PageSection";
+import PageSection from "@/app/sharedComponents/PageSection";
 
 export const metadata = {
   title: "Contact | Abdur Rahman Portfolio",

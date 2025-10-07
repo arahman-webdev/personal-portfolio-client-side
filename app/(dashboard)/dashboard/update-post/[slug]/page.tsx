@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AlertCircleIcon, ImageUpIcon, XIcon } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
@@ -8,54 +8,130 @@ import { useFileUpload } from "@/hooks/use-file-upload";
 import Image from "next/image";
 import { toast } from "sonner";
 
-export default function CreateBlogForm() {
-  const maxSizeMB = 5;
-  const maxSize = maxSizeMB * 1024 * 1024;
+interface Blog {
+  id: string;
+  title: string;
+  excerpt?: string;
+  content: string;
+  published: boolean;
+  thumbnail?: string;
+}
 
-  const [
-    { files, isDragging, errors },
-    { handleDragEnter, handleDragLeave, handleDragOver, handleDrop, openFileDialog, removeFile, getInputProps },
-  ] = useFileUpload({ accept: "image/*", maxSize });
+export default function UpdatePost({ params }: { params: { slug: string } }) {
+  const { slug } = params;
+  const [blog, setBlog] = useState<Blog | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const previewUrl = files[0]?.preview || null;
-
+  // Form states
   const [title, setTitle] = useState("");
   const [excerpt, setExcerpt] = useState("");
   const [content, setContent] = useState("");
   const [published, setPublished] = useState(false);
 
+  // File upload
+  const maxSizeMB = 5;
+  const maxSize = maxSizeMB * 1024 * 1024;
+  const [
+    { files, isDragging, errors },
+    { handleDragEnter, handleDragLeave, handleDragOver, handleDrop, openFileDialog, removeFile, getInputProps },
+  ] = useFileUpload({ accept: "image/*", maxSize });
+  const previewUrl = files[0]?.preview || null;
+
+  // ✅ Fetch blog data on mount
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const res = await fetch(
+          `https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/post/${slug}`,
+          { cache: "no-store" }
+        );
+        const result = await res.json();
+
+        if (result?.data) {
+          const fetchedBlog = result.data as Blog;
+          setBlog(fetchedBlog);
+          setTitle(fetchedBlog.title || "");
+          setExcerpt(fetchedBlog.excerpt || "");
+          setContent(fetchedBlog.content || "");
+          setPublished(fetchedBlog.published || false);
+        } else {
+          toast.error("Blog not found!");
+        }
+      } catch (error) {
+        console.error("Error fetching blog:", error);
+        toast.error("Failed to fetch blog data.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlog();
+  }, [slug]);
+
+  // ✅ Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
-     const toastId = toast.loading("Creating tour....");
     e.preventDefault();
-    if (!title || !content) return;
+
+    if (!title || !content) {
+      toast.error("Title and content are required");
+      return;
+    }
+
+    const toastId = toast.loading("Updating blog...");
 
     const formData = new FormData();
     formData.append("data", JSON.stringify({ title, excerpt, content, published }));
+
     if (files[0]?.file instanceof File) {
       formData.append("thumbnail", files[0].file);
     }
 
     try {
-      const res = await fetch("https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/post", { method: "POST", body: formData });
+      const res = await fetch(
+        `https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/post/${slug}`,
+        {
+          method: "PUT",
+          body: formData,
+        }
+      );
+
       const data = await res.json();
-      console.log(data);
-      // Optionally reset form here
-      if(data?.data?.id){
-        toast.success(`${data?.message}`, {id:toastId})
+      if (data?.success) {
+        toast.success(data.message || "Blog updated successfully!", { id: toastId });
+      } else {
+        toast.error(data?.message || "Failed to update blog", { id: toastId });
+        
       }
     } catch (err) {
       console.error(err);
+      toast.error("Something went wrong!", { id: toastId });
     }
   };
+
+  if (loading) {
+    return (
+      <div className="text-center py-10 text-gray-600">
+        Loading blog data...
+      </div>
+    );
+  }
+
+  if (!blog) {
+    return (
+      <div className="text-center py-10 text-red-600">
+        Blog not found!
+      </div>
+    );
+  }
 
   return (
     <div className="py-10">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-6 p-8  rounded-xl shadow-xl text-white max-w-3xl mx-auto"
+        className="flex flex-col gap-6 p-8 rounded-xl shadow-xl text-white max-w-3xl mx-auto"
       >
         <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-[#8236fb] to-[#076ef4] text-transparent bg-clip-text">
-          Create Blog
+          Update Blog
         </h1>
 
         {/* Title */}
@@ -102,16 +178,27 @@ export default function CreateBlogForm() {
           onDragOver={handleDragOver}
           onDrop={handleDrop}
           data-dragging={isDragging || undefined}
-          className={`relative border-2 border-dashed rounded-xl p-4 flex items-center justify-center transition-colors ${isDragging ? "border-[#8236fb] bg-[#1b0f3f]" : "border-gray-500"
-            }`}
+          className={`relative border-2 border-dashed rounded-xl p-4 flex items-center justify-center transition-colors ${
+            isDragging ? "border-[#8236fb] bg-[#1b0f3f]" : "border-gray-500"
+          }`}
         >
           <input {...getInputProps()} className="sr-only" />
 
+          {/* ✅ Show existing thumbnail if no new file selected */}
           {previewUrl ? (
             <div className="relative w-full h-72 rounded-xl overflow-hidden">
               <Image
                 src={previewUrl}
                 alt={files[0]?.file?.name || "Uploaded image"}
+                fill
+                className="object-cover"
+              />
+            </div>
+          ) : blog?.thumbnail ? (
+            <div className="relative w-full h-72 rounded-xl overflow-hidden">
+              <Image
+                src={blog.thumbnail}
+                alt="Current thumbnail"
                 fill
                 className="object-cover"
               />
@@ -146,8 +233,11 @@ export default function CreateBlogForm() {
         )}
 
         {/* Submit */}
-        <Button type="submit" className="bg-gradient-to-r from-[#8236fb] to-[#076ef4] hover:from-[#076ef4] hover:to-[#8236fb]">
-          Create Blog
+        <Button
+          type="submit"
+          className="bg-gradient-to-r from-[#8236fb] to-[#076ef4] hover:from-[#076ef4] hover:to-[#8236fb]"
+        >
+          Update Blog
         </Button>
       </form>
     </div>

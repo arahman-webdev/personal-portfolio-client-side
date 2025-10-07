@@ -3,14 +3,14 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+} from "@/app/components/ui/card";
+import { Input } from "@/app/components/ui/input";
 import {
   FormField,
   FormMessage,
@@ -18,7 +18,7 @@ import {
   FormLabel,
   FormControl,
   Form,
-} from "@/components/ui/form";
+} from "@/app/components/ui/form";
 import { toast } from "sonner";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Password from "./PasswordInput";

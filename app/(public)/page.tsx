@@ -1,10 +1,10 @@
-import About from "@/components/homeComponents/About";
-import Feature from "@/components/homeComponents/Feature";
-import Hero from "@/components/homeComponents/Hero";
+import About from "@/app/components/homeComponents/About";
+import Feature from "@/app/components/homeComponents/Feature";
+import Hero from "@/app/components/homeComponents/Hero";
 
-import BlogPost from "@/components/homeComponents/BlogPost";
-import ServiceSection from "@/components/homeComponents/ServiceSection";
-import ProjectSection from "@/components/homeComponents/ProjectSection";
+import BlogPost from "@/app/components/homeComponents/BlogPost";
+import ServiceSection from "@/app/components/homeComponents/ServiceSection";
+import ProjectSection from "@/app/components/homeComponents/ProjectSection";
 
 export const metadata = {
   title: "Abdur Rahman Portfolio | Full Stack Developer",

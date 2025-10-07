@@ -1,4 +1,4 @@
-import SectionHeading from "@/sharedComponents/SectionHeading";
+import SectionHeading from "@/app/sharedComponents/SectionHeading";
 import ProjectCard from "./ProjectCard";
 
 const projects = [

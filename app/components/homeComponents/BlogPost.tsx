@@ -1,7 +1,7 @@
 
 import { IPost } from "@/types";
 import BlogCard from "./BlogCard";
-import SectionHeading from "@/sharedComponents/SectionHeading";
+import SectionHeading from "@/app/sharedComponents/SectionHeading";
 import Link from "next/link";
 
 

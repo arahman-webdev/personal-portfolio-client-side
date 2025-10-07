@@ -3,7 +3,7 @@ import React from "react";
 import "../../globals.css";
 import Sidebar from "./dashboardComponents/Sidebar";
 import Topbar from "./dashboardComponents/Topbar";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/app/components/ui/sonner";
 
 
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import {
   Table,
   TableBody,
@@ -9,7 +9,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/app/components/ui/table";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,9 +20,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@/app/components/ui/alert-dialog";
+import Link from "next/link";
 
-interface Blog {
+export interface Blog {
   id: number;
   title: string;
   excerpt: string;
@@ -65,9 +66,9 @@ export default function ManageBlog() {
     }
   };
 
-  const handleUpdate = (id: number) => {
-    window.location.href = `/dashboard/update-blog/${id}`;
-  };
+
+
+
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
@@ -88,9 +89,9 @@ export default function ManageBlog() {
               <TableCell>{blog.excerpt}</TableCell>
               <TableCell>{blog.published ? "Yes" : "No"}</TableCell>
               <TableCell className="flex gap-2">
-                <Button onClick={() => handleUpdate(blog.id)} size="sm">
+                <Link href={`/dashboard/update-post/${blog.id}`}>
                   Update
-                </Button>
+                </Link>
 
                 {/* Delete button with AlertDialog */}
                 <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

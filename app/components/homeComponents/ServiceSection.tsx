@@ -1,6 +1,6 @@
 "use client";
 
-import SectionHeading from "@/sharedComponents/SectionHeading";
+import SectionHeading from "@/app/sharedComponents/SectionHeading";
 import { motion } from "framer-motion";
 import { Code2, Database, Layout, Lock } from "lucide-react";
 

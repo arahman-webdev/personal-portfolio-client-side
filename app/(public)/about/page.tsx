@@ -1,5 +1,5 @@
-import PageSection from "@/sharedComponents/PageSection";
-import About from '@/components/homeComponents/About';
+import PageSection from "@/app/sharedComponents/PageSection";
+import About from '@/app/components/homeComponents/About';
 
 
 export const metadata = {

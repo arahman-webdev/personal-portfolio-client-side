@@ -1,5 +1,5 @@
 
-import PageSection from "@/sharedComponents/PageSection"
+import PageSection from "@/app/sharedComponents/PageSection"
 import { IPost } from "@/types"
 import Image from "next/image";
 

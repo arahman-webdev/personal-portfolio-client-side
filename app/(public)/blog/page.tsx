@@ -1,6 +1,6 @@
-import BlogCard from "@/components/homeComponents/BlogCard";
-import PageSection from "@/sharedComponents/PageSection";
-import SectionHeading from "@/sharedComponents/SectionHeading";
+import BlogCard from "@/app/components/homeComponents/BlogCard";
+import PageSection from "@/app/sharedComponents/PageSection";
+import SectionHeading from "@/app/sharedComponents/SectionHeading";
 import { IPost } from "@/types";
 
 

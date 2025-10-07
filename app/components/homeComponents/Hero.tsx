@@ -4,15 +4,15 @@ import * as React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Autoplay from "embla-carousel-autoplay";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "@/app/components/ui/carousel";
 import { Button } from "../ui/button";
 
 // Images
-import bgImg1 from "../../images/HeroBgImg.png";
-import fgImg1 from "../../images/front-slider-1.png";
-import fgImg2 from "../../images/front-slider-2.png";
-import bgImg3 from "../../images/hero-bg-img-2.png";
-import fgImg3 from "../../images/front-slider-3.png";
+import bgImg1 from "../../../images/HeroBgImg.png";
+import fgImg1 from "../../../images/front-slider-1.png";
+import fgImg2 from "../../../images/front-slider-2.png";
+import bgImg3 from "../../../images/hero-bg-img-2.png";
+import fgImg3 from "../../../images/front-slider-3.png";
 
 const slides = [
   {

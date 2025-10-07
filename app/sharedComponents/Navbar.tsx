@@ -3,12 +3,12 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "../components/ui/button";
 import Image from "next/image";
-import logo from "../images/arlogo.png";
+import logo from "../../images/arlogo.png";
 import Link from "next/link";
 import { PhoneCall, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { ProfileOpen } from "@/components/layout/ProfileOpen";
+import { ProfileOpen } from "@/app/components/layout/ProfileOpen";
 
 
 export default function Navbar() {

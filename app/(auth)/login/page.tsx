@@ -1,5 +1,5 @@
 
-import LoginForm from "@/components/ui/loginForm";
+import LoginForm from "@/app/components/ui/loginForm";
 
 
 export const metadata = {

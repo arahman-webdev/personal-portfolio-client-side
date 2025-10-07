@@ -3,13 +3,42 @@
 
 import Link from "next/link";
 import { FileText, Home, LayoutDashboard, LogOut, Plus, Menu, X } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { redirect, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Sidebar() {
   const router = useRouter();
   const [user, setUser] = useState<{ name: string } | null>(null);
-  const [isOpen, setIsOpen] = useState(false); 
+  const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch(
+          "https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/user/me",
+          {
+            method: "GET",
+            credentials: "include",
+          }
+        );
+        const data = await res.json();
+
+        if (data.success) {
+          setUser(data.data);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -32,9 +61,14 @@ export default function Sidebar() {
     { href: "/dashboard", label: "Dashboard", icon: <LayoutDashboard size={20} /> },
     { href: "/dashboard/create-blog", label: "Create Blog", icon: <Plus size={20} /> },
     { href: "/dashboard/manage-blog", label: "Manage Blog", icon: <FileText size={20} /> },
-    
+
   ];
 
+  console.log(user?.name)
+
+// if(!user){
+//   redirect("/login")
+// }
   return (
     <>
       {/* Mobile toggle button */}

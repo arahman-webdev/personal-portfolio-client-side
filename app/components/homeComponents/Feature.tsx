@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Cloud, Server, Shield, Database } from "lucide-react";
-import bgImage from "../../images/feature-1.jpg";
+import bgImage from "../../../images/feature-1.jpg";
 
 const featureData = [
     {
