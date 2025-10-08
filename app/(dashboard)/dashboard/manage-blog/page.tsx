@@ -96,7 +96,7 @@ export default function ManageBlog() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="max-w-6xl mx-auto bg-white shadow-2xl rounded-2xl p-6 sm:p-10 overflow-hidden"
+        className="max-w-6xl mx-auto bg-white shadow-2xl rounded-2xl p-6 sm:p-10 "
       >
         {/* Title Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
@@ -126,7 +126,6 @@ export default function ManageBlog() {
               <TableHeader className="bg-gradient-to-r from-[#8236fb]/10 to-[#076ef4]/10">
                 <TableRow>
                   <TableHead className="text-left">Title</TableHead>
-                  <TableHead className="hidden sm:table-cell text-left">Excerpt</TableHead>
                   <TableHead className="text-center">Published</TableHead>
                   <TableHead className="text-center">Actions</TableHead>
                 </TableRow>
@@ -135,11 +134,6 @@ export default function ManageBlog() {
                 {blogs.map((blog) => (
                   <TableRow key={blog.id} className="hover:bg-gray-50 transition">
                     <TableCell className="font-medium">{blog.title}</TableCell>
-                    <TableCell className="hidden sm:table-cell text-gray-600">
-                      {blog.excerpt.length > 80
-                        ? blog.excerpt.slice(0, 80) + "..."
-                        : blog.excerpt}
-                    </TableCell>
                     <TableCell className="text-center">
                       <span
                         className={`px-3 py-1 rounded-full text-sm font-medium ${blog.published
