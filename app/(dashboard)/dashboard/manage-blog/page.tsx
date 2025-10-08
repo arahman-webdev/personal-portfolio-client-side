@@ -24,6 +24,7 @@ import {
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Loader2, Trash2, Pencil } from "lucide-react";
+import { toast } from "sonner";
 
 export interface Blog {
   id: number;
@@ -57,17 +58,35 @@ export default function ManageBlog() {
   }, []);
 
   const confirmDelete = async () => {
-    if (!selectedBlogId) return;
+    if (!selectedBlogId) {
+      toast.error("No blog selected for deletion");
+      return;
+    }
+
+    const toastId = toast.loading("Deleting blog...");
+
     try {
-      await fetch(
+      const res = await fetch(
         `https://abdurrahman-dev-portfolio-backend.vercel.app/api/v1/post/${selectedBlogId}`,
-        { method: "DELETE" }
+        { method: "DELETE", credentials: "include" } // include cookies if needed
       );
-      setBlogs((prev) => prev.filter((b) => b.id !== selectedBlogId));
-      setSelectedBlogId(null);
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+       
+        setBlogs((prev) => prev.filter((b) => b.id !== selectedBlogId));
+        toast.success(data.message || "Blog deleted successfully", { id: toastId });
+      } else {
+        toast.error(data.message || "Failed to delete blog", { id: toastId });
+      }
+
+    
       setIsDialogOpen(false);
+      setSelectedBlogId(null);
     } catch (error) {
       console.error("Failed to delete blog:", error);
+      toast.error("Something went wrong while deleting", { id: toastId });
     }
   };
 
@@ -123,11 +142,10 @@ export default function ManageBlog() {
                     </TableCell>
                     <TableCell className="text-center">
                       <span
-                        className={`px-3 py-1 rounded-full text-sm font-medium ${
-                          blog.published
-                            ? "bg-green-100 text-green-700"
-                            : "bg-yellow-100 text-yellow-700"
-                        }`}
+                        className={`px-3 py-1 rounded-full text-sm font-medium ${blog.published
+                          ? "bg-green-100 text-green-700"
+                          : "bg-yellow-100 text-yellow-700"
+                          }`}
                       >
                         {blog.published ? "Published" : "Draft"}
                       </span>
