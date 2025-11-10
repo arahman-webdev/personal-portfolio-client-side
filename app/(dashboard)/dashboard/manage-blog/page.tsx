@@ -96,7 +96,7 @@ export default function ManageBlog() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="max-w-6xl mx-auto bg-white shadow-2xl rounded-2xl p-6 sm:p-10 "
+        className="max-w-6xl mx-auto bg-white shadow-2xl rounded-2xl p-6 sm:p-10 overflow-x-visible"
       >
         {/* Title Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8">
@@ -121,7 +121,7 @@ export default function ManageBlog() {
             No blogs found. Start by creating one!
           </div>
         ) : (
-          <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+          <div className="overflow-x-auto min-w-[600px] sm:min-w-full rounded-xl border border-gray-200 shadow-sm">
             <Table>
               <TableHeader className="bg-gradient-to-r from-[#8236fb]/10 to-[#076ef4]/10">
                 <TableRow>

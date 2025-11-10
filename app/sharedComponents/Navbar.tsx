@@ -83,6 +83,7 @@ export default function Navbar() {
               { name: "About", href: "/about" },
               { name: "Blog", href: "/blog" },
               { name: "Project", href: "/project" },
+              { name: "Products", href: "/products" },
               { name: "Contact", href: "/contact" },
             ].map((item) => (
               <Link
