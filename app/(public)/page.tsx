@@ -2,7 +2,7 @@ import About from "@/app/components/homeComponents/About";
 import Feature from "@/app/components/homeComponents/Feature";
 import Hero from "@/app/components/homeComponents/Hero";
 
-import BlogPost from "@/app/components/homeComponents/BlogPost";
+
 import ServiceSection from "@/app/components/homeComponents/ServiceSection";
 import ProjectSection from "@/app/components/homeComponents/ProjectSection";
 import SkillsSection from "../components/homeComponents/Skill";
@@ -22,7 +22,6 @@ export default function Home() {
       <About />
       <ServiceSection />
       <SkillsSection />
-      <BlogPost />
       <ProjectSection />
     </div>
   );
