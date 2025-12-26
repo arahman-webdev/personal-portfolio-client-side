@@ -2,30 +2,32 @@ import SectionHeading from "@/app/sharedComponents/SectionHeading";
 import ProjectCard from "./ProjectCard";
 
 const projects = [
-  {
-    title: "Static Website",
-    description: "WOiQO Academy is your direct path to cloud mastery. Whether you’re pivoting your career or seeking professional elevation, our programs provide the personalized guidance and hands-on expertise you need.",
-    image: "https://i.ibb.co.com/wNB1jMHW/project-2.png",
-    tech: ["Next.js", "TypeScript", "TailwindCSS", "Prisma"],
-    liveUrl: "https://woiqo.com/",
-    githubUrl: "https://github.com/desyed/woiqo",
-  },
+
+
 
   {
-    title: "Hotel Booking Website",
-    description: "The Hotel Booking Website allows users to search and book hotels, view available rooms, and manage their bookings with ease. The platform features a responsive design and an intuitive user interface for an optimal booking experience.",
-    image: "https://i.ibb.co.com/CsMykSyV/project-3.png",
-    tech: ["React", "React Router", "MongoDB"],
-    liveUrl: "aptease-app.netlify.app",
-    githubUrl: "https://github.com/arahman-webdev/assingment-test-12-client",
+    "title": "Next.js Ecommerce Platform",
+    "description": "A full-featured ecommerce web application built with Next.js and TypeScript. It supports authentication using JWT, role-based access control, product management, cart and wishlist functionality, and secure order processing using Prisma ORM.",
+    "image": "https://i.ibb.co.com/Gq0n7KX/ecommerce-1.png",
+    "tech": ["Next.js", "TypeScript", "Prisma", "JWT", "PostgreSQL"],
+    "liveUrl": "https://nextjs-ecommerce-frontend-zeta.vercel.app/",
+    "githubUrl": "https://github.com/arahman-webdev/nextjs-ecommerce-frontend"
   },
   {
-    title: "Courier Service Website",
-    description: "SwiftParcel is a secure, role-based parcel delivery system designed to streamline the shipping process for both senders and receivers. Admins have comprehensive control, managing parcels, updating statuses, and ensuring smooth operations.",
-    image: "https://i.ibb.co.com/bgx9vdxk/project-1.png",
-    tech: ["React", "Next.js", "Typescript", "Prisma", "JWT"],
-    liveUrl: "https://example.com",
-    githubUrl: "https://github.com/arahman-webdev/courier-management-frontend",
+    "title": "Tour Management System",
+    "description": "A tour and travel management platform that allows users to explore tours, book packages, and manage reservations. Admins can manage tours, users, and bookings efficiently with secure authentication and modern UI.",
+    "image": "https://i.ibb.co.com/yFFbfrfh/tour-project.png",
+    "tech": ["Next.js", "TypeScript", "Prisma", "JWT", "Tailwind CSS"],
+    "liveUrl": "https://local-guide-frontend-red.vercel.app/",
+    "githubUrl": "https://github.com/arahman-webdev/local-guide-frontend"
+  },
+  {
+    "title": "Courier Service Website (SwiftParcel)",
+    "description": "SwiftParcel is a role-based courier and parcel management system. Users can create parcel requests, track delivery status, and manage shipments, while admins control parcel assignments, status updates, and overall operations.",
+    "image": "https://i.ibb.co.com/bgx9vdxk/project-1.png",
+    "tech": ["React", "Next.js", "TypeScript", "Prisma", "JWT"],
+    "liveUrl": "https://swiftparcelbd.netlify.app/",
+    "githubUrl": "https://github.com/arahman-webdev/courier-management-frontend"
   },
 ];
 

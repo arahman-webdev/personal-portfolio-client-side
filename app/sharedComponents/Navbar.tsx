@@ -83,7 +83,6 @@ export default function Navbar() {
               { name: "About", href: "/about" },
               { name: "Blog", href: "/blog" },
               { name: "Project", href: "/project" },
-              { name: "Products", href: "/products" },
               { name: "Contact", href: "/contact" },
             ].map((item) => (
               <Link
@@ -111,21 +110,20 @@ export default function Navbar() {
             </div>
           </div>
 
-          {!loading && (
+        
             <>
-              {user ? (
-                <ProfileOpen name={user.name} role={user.role} MyDashboard='' logout={handleLogout} />
+            
                 
-              ) : (
+             
                 <Link
-                  href="/login"
+                  href="/contact"
                   className="bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-600 text-white text-sm rounded-md py-2 px-6 font-semibold uppercase shadow-lg hover:scale-105 transition-transform duration-300"
                 >
-                  Login
+                  Contact me
                 </Link>
-              )}
+             
             </>
-          )}
+         
         </div>
 
         {/* Mobile Menu Toggle */}

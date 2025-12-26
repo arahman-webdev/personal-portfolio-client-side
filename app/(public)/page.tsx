@@ -5,6 +5,7 @@ import Hero from "@/app/components/homeComponents/Hero";
 import BlogPost from "@/app/components/homeComponents/BlogPost";
 import ServiceSection from "@/app/components/homeComponents/ServiceSection";
 import ProjectSection from "@/app/components/homeComponents/ProjectSection";
+import SkillsSection from "../components/homeComponents/Skill";
 
 export const metadata = {
   title: "Abdur Rahman Portfolio | Full Stack Developer",
@@ -20,6 +21,7 @@ export default function Home() {
       <Feature />
       <About />
       <ServiceSection />
+      <SkillsSection />
       <BlogPost />
       <ProjectSection />
     </div>

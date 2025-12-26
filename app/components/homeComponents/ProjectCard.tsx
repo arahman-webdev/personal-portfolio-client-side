@@ -30,7 +30,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover w-full h-full transform group-hover:scale-110 transition duration-500"
+          className="object-contain w-full h-full transform group-hover:scale-110 transition duration-500"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition"></div>
       </div>
